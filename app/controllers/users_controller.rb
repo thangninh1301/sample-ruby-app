@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
@@ -10,14 +12,14 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-# Handle a successful save.
-      flash[:success] = "Welcome to the Sample App!"
+      reset_session
+      log_in @user
+      flash[:success] = 'Welcome to the Sample App!'
       redirect_to @user
     else
       render 'new'
     end
   end
-
 
   private
 
