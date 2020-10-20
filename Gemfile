@@ -6,8 +6,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
+#image validate
+gem 'active_storage_validations', '0.8.9'
+gem 'mini_magick', '4.9.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+
+#resize image
+gem 'image_processing', '1.9.3'
 
 gem 'bootstrap-sass', '3.4.1'
 # Use sqlite3 as the database for Active Record
