@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  devise  :omniauthable, omniauth_providers: %i[facebook google_oauth2]
-  #finish tutorial rails
+  devise :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+  # finish tutorial rails
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
@@ -36,7 +36,7 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
-  #login with fb gg
+  # login with fb gg
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data['email']).first
@@ -44,12 +44,13 @@ class User < ApplicationRecord
       user
     else
       password = '12345678'
-      user = User.create(name: data['name'],
-                         email: data['email'],
-                         password: password,
-                         password_confirmation: password,
-                         activated: true,
-                         activated_at: Time.zone.now)
+      User.create(name: data['name'],
+                  email: data['email'],
+                  password: password,
+                  password_confirmation: password,
+                  activated: true,
+                  activated_at: Time.zone.now)
+
       # uid: access_token[:uid],
       # provider: access_token[:provider]
     end

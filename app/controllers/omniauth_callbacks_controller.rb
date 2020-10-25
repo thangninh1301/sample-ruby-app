@@ -9,44 +9,42 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def generic_callback(_provider)
     @user = User.from_omniauth(request.env['omniauth.auth'])
-    if @user.persisted?
-      reset_session
-      log_in resource
-      redirect_to root_path
+    return unless @user.persisted?
 
-    end
+    reset_session
+    log_in resource
+    redirect_to root_path
   end
 
   def failure
     redirect_to root_path
   end
-
-  # def after_sign_in_path_for(resource)
-  #   if resource.class == User
-  #     reset_session
-  #     log_in resource
-  #   else
-  #     super
-  #   end
-  # end
-
-  # def sign_in_and_redirect(resource_or_scope, *args)
-  #   options  = args.extract_options!
-  #   scope    = Devise::Mapping.find_scope!(resource_or_scope)
-  #   resource = args.last || resource_or_scope
-  #   sign_in(scope, resource, options)
-  #   redirect_to after_sign_in_path_for(resource)
-  # end
-
-  # def after_sign_up_path_for(staff_user)
-  #   flash[:notice] = 'Welcome! You have signed up successfully.'
-  #   root_path
-  # end
-  #
-  # def after_sign_out_path_for(resource_or_scope)
-  #   root_path
-  # end
 end
+# def after_sign_in_path_for(resource)
+#   if resource.class == User
+#     reset_session
+#     log_in resource
+#   else
+#     super
+#   end
+# end
+
+# def sign_in_and_redirect(resource_or_scope, *args)
+#   options  = args.extract_options!
+#   scope    = Devise::Mapping.find_scope!(resource_or_scope)
+#   resource = args.last || resource_or_scope
+#   sign_in(scope, resource, options)
+#   redirect_to after_sign_in_path_for(resource)
+# end
+
+# def after_sign_up_path_for(staff_user)
+#   flash[:notice] = 'Welcome! You have signed up successfully.'
+#   root_path
+# end
+#
+# def after_sign_out_path_for(resource_or_scope)
+#   root_path
+# end
 
 # def create
 #     user = User.find_by(email: params[:session][:email].downcase)

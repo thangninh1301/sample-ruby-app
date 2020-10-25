@@ -310,5 +310,4 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
   config.omniauth :google_oauth2, ENV['google_client_id'], ENV['google_client_secret']
   config.omniauth :facebook, ENV['fb_app_id'], ENV['fb_secret']
-
 end
