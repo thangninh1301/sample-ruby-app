@@ -1,24 +1,27 @@
 class User < ApplicationRecord
+  devise  :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+  #finish tutorial rails
   has_many :microposts, dependent: :destroy
-  has_many :active_relationships, class_name: "Relationship",
-           foreign_key: "follower_id",
-           dependent: :destroy
-  has_many :passive_relationships, class_name: "Relationship",
-           foreign_key: "followed_id",
-           dependent: :destroy
+  has_many :active_relationships, class_name: 'Relationship',
+                                  foreign_key: 'follower_id',
+                                  dependent: :destroy
+  has_many :passive_relationships, class_name: 'Relationship',
+                                   foreign_key: 'followed_id',
+                                   dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
   attr_accessor :remember_token, :activation_token, :reset_token
+
   before_save { self.email = email.downcase }
   before_create :create_activation_digest
-  validates :name, presence: true, length: {maximum: 50}
+  validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-  validates :email, presence: true, length: {maximum: 255},
-            format: {with: VALID_EMAIL_REGEX},
-            uniqueness: {case_sensitive: false}
+  validates :email, presence: true, length: { maximum: 255 },
+                    format: { with: VALID_EMAIL_REGEX },
+                    uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, presence: true, length: {minimum: 6}, allow_nil: true
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   # Returns the hash digest of the given string.
   def self.digest(string)
     cost = if ActiveModel::SecurePassword.min_cost
@@ -31,6 +34,25 @@ class User < ApplicationRecord
 
   def self.new_token
     SecureRandom.urlsafe_base64
+  end
+
+  #login with fb gg
+  def self.from_omniauth(access_token)
+    data = access_token.info
+    user = User.where(email: data['email']).first
+    if user
+      user
+    else
+      password = '12345678'
+      user = User.create(name: data['name'],
+                         email: data['email'],
+                         password: password,
+                         password_confirmation: password,
+                         activated: true,
+                         activated_at: Time.zone.now)
+      # uid: access_token[:uid],
+      # provider: access_token[:provider]
+    end
   end
 
   def remember
@@ -72,6 +94,7 @@ class User < ApplicationRecord
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
+
     BCrypt::Password.new(digest).is_password?(token)
   end
 

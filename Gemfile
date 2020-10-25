@@ -6,13 +6,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-#image validate
+# image validate
 gem 'active_storage_validations', '0.8.9'
 gem 'mini_magick', '4.9.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 
-#resize image
+# resize image
 gem 'image_processing', '1.9.3'
 
 gem 'bootstrap-sass', '3.4.1'
@@ -39,16 +39,16 @@ gem 'jbuilder', '~> 2.7'
 # crypt password
 gem 'bcrypt', '3.1.13'
 
-#faker, fake users
+# faker, fake users
 gem 'faker', '2.11.0'
 # rubocop
 gem 'rubocop'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-#pagination
-gem 'will_paginate', '3.3.0'
+# pagination
 gem 'bootstrap-will_paginate', '1.0.0'
+gem 'will_paginate', '3.3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -83,3 +83,15 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+gem 'devise'
+
+gem 'omniauth'
+
+gem 'omniauth-google-oauth2'
+
+gem 'omniauth-facebook'
+
+# dev varible, debug
+gem 'byebug'
+gem 'figaro'
