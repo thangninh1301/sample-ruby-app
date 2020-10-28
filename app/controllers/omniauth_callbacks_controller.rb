@@ -1,5 +1,6 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
+    params.inspec
     generic_callback('facebook')
   end
 

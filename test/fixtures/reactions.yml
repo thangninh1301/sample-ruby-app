@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+#one:
+#  icon_id: 1
+#  reactor_id: 3
+#  micropost: one
+#
+#two:
+#  icon_id: 1
+#  reactioner_id: MyString
+#  micropost: two
