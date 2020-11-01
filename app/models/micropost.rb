@@ -1,5 +1,10 @@
 class Micropost < ApplicationRecord
   belongs_to :user
+  has_many :reactions, class_name: 'Reaction',
+           foreign_key: 'micropost_id',
+           dependent: :destroy
+  # has_many :user_reaction, through: :reactions,source: :reactor
+
   has_one_attached :image
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
@@ -10,5 +15,16 @@ class Micropost < ApplicationRecord
                             message: 'should be less than 5MB' }
   def display_image
     image.variant(resize_to_limit: [500, 500])
+  end
+
+  def get_reaction_id(icon_id,user_id)
+    reactions=self.reactions.find_by(icon_id: icon_id, reactor_id: user_id)
+    if reactions
+      reactions.id
+    end
+  end
+
+  def count_reaction_by_icon(icon_id)
+    Reaction.where(:micropost_id=> self.id, :icon_id=> icon_id).count
   end
 end

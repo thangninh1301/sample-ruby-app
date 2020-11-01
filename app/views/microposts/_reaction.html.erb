@@ -1,0 +1,13 @@
+<span>
+  <span id="like-reaction-in-<%= @micropost.id %>">
+    <% if !@micropost.get_reaction_id(1,current_user.id) %>
+      <%= render 'reaction/like' %>
+    <% else %>
+      <%= render 'reaction/unlike' %>
+    <% end %>
+  </span>
+    <span id="like-count-in-<%= @micropost.id %>"><%= @micropost.count_reaction_by_icon(1) %></span>
+</span>
+
+<!--  <span class="dislike"><%#= count[:other] %></span>-->
+
