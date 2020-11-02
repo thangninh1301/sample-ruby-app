@@ -42,15 +42,14 @@ followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
 
-#fake reaction
-users= User.all
-User_liked=users[2..10]
+# fake reaction
+users = User.all
+User_liked = users[2..10]
 User_liked.each do |each_user|
-  microposts=Micropost.all[0..50]
+  microposts = Micropost.all[0..50]
   microposts.each do |micropost|
     Reaction.create!(icon_id: 1,
                      reactor_id: each_user.id,
                      micropost_id: micropost.id)
   end
-
 end
