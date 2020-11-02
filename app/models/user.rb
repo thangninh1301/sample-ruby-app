@@ -2,9 +2,6 @@ class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   # finish tutorial rails
   has_many :microposts, dependent: :destroy
-  has_many :reactions,  class_name: 'Reaction',
-                        foreign_key: 'reactor_id',
-                        dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
                                   dependent: :destroy
