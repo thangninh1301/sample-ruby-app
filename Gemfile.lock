@@ -103,11 +103,11 @@ GEM
     diff-lcs (1.4.4)
     erubi (1.9.0)
     execjs (2.7.0)
-    factory_girl (4.9.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
-      railties (>= 3.0.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     faker (2.11.0)
       i18n (>= 1.6, < 2)
     faraday (1.1.0)
@@ -361,7 +361,7 @@ DEPENDENCIES
   byebug
   capybara
   devise
-  factory_girl_rails
+  factory_bot_rails
   faker
   figaro
   guard (= 2.16.2)

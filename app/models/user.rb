@@ -19,7 +19,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  has_secure_password
+  has_secure_password validations: false
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   # Returns the hash digest of the given string.
   def self.digest(string)
@@ -45,8 +45,7 @@ class User < ApplicationRecord
       password = (0...8).map { rand(65..90).chr }.join
       User.create(name: data['name'],
                   email: data['email'],
-                  password: password,
-                  password_confirmation: password,
+                  avatar_url: data['image'],
                   activated: true,
                   activated_at: Time.zone.now)
 

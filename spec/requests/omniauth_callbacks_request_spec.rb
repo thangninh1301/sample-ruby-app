@@ -2,13 +2,21 @@ require 'rails_helper'
 require 'omniauth'
 describe OmniauthCallbacksController, type: :controller do
   it 'should set user_id while login with fb' do
-    omit(:facebook)
+    login_with(:facebook)
     expect(session[:user_id]).to eq(User.last.id)
   end
 
   it 'should set user_id while login with google' do
-    omit(:google_oauth2)
+    login_with(:google_oauth2)
     expect(session[:user_id]).to eq(User.last.id)
+  end
+
+  it 'should get same user_id while login with gg fb' do
+    login_with(:google_oauth2)
+    save_id=session[:user_id]
+    session[:user_id]=nil
+    login_with(:google_oauth2)
+    expect(session[:user_id]).to eq(save_id)
   end
 
   it 'should not get user_id while login with invalid info(email invalid)' do
@@ -24,7 +32,7 @@ describe OmniauthCallbacksController, type: :controller do
   end
 end
 
-def omit(temp)
+def login_with(temp)
   request.env['devise.mapping'] = Devise.mappings[:user]
   OmniAuth.config.test_mode = true
   OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({  'provider' => temp == :facebook ? 'facebook' : 'google_oauth2',
