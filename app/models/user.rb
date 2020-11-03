@@ -42,7 +42,7 @@ class User < ApplicationRecord
     if user
       user
     else
-      password = '12345678'
+      password = (0...8).map { rand(65..90).chr }.join
       User.create(name: data['name'],
                   email: data['email'],
                   password: password,
@@ -50,8 +50,6 @@ class User < ApplicationRecord
                   activated: true,
                   activated_at: Time.zone.now)
 
-      # uid: access_token[:uid],
-      # provider: access_token[:provider]
     end
   end
 
