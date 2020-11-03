@@ -35,14 +35,32 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
-  # login with fb gg
+  # # login with fb gg
+  # def self.from_omniauth(access_token)
+  #   data = access_token.info
+  #   user = User.where(email: data['email']).first
+  #   if user
+  #     user
+  #   else
+  #     password = '12345678'
+  #     User.create(name: data['name'],
+  #                 email: data['email'],
+  #                 password: password,
+  #                 password_confirmation: password,
+  #                 activated: true,
+  #                 activated_at: Time.zone.now)
+  #
+  #     # uid: access_token[:uid],
+  #     # provider: access_token[:provider]
+  #   end
+  # end
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data['email']).first
     if user
       user
     else
-      password = '12345678'
+      password = (0...8).map { (65 + rand(26)).chr }.join
       User.create(name: data['name'],
                   email: data['email'],
                   password: password,
