@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+  has_many :user_info, dependent: :destroy
   # finish tutorial rails
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
@@ -19,7 +20,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  has_secure_password
+  has_secure_password validations: false
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   # Returns the hash digest of the given string.
   def self.digest(string)
@@ -36,23 +37,19 @@ class User < ApplicationRecord
   end
 
   # login with fb gg
-  def self.from_omniauth(access_token)
+  def self.from_omniauth(access_token, provider)
     data = access_token.info
     user = User.where(email: data['email']).first
-    if user
-      user
-    else
-      password = '12345678'
-      User.create(name: data['name'],
-                  email: data['email'],
-                  password: password,
-                  password_confirmation: password,
-                  activated: true,
-                  activated_at: Time.zone.now)
-
-      # uid: access_token[:uid],
-      # provider: access_token[:provider]
-    end
+    user ||= User.create(name: data['name'],
+                         email: data['email'],
+                         provider: provider,
+                         activated: true,
+                         activated_at: Time.zone.now)
+    user.user_info.where(provider: provider).first_or_create(name: data['name'],
+                                                             email: data['email'],
+                                                             avatar_url: data['image'],
+                                                             provider: provider)
+    user
   end
 
   def remember

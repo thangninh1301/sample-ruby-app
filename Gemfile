@@ -39,8 +39,6 @@ gem 'jbuilder', '~> 2.7'
 # crypt password
 gem 'bcrypt', '3.1.13'
 
-# faker, fake users
-gem 'faker', '2.11.0'
 # rubocop
 gem 'rubocop'
 # Reduces boot times through caching; required in config/boot.rb
@@ -66,7 +64,6 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'guard', '2.16.2'
@@ -75,6 +72,12 @@ group :test do
   gem 'minitest-reporters', '1.3.8'
   gem 'rails-controller-testing', '1.0.4'
   gem 'webdrivers'
+
+  gem 'capybara'
+  gem 'faker'
+  gem 'guard-rspec'
+  gem 'launchy'
+  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
 end
 
 group :production do
@@ -82,7 +85,9 @@ group :production do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.7'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rspec-rails', '~>  4.0.1'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
