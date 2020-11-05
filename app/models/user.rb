@@ -37,21 +37,18 @@ class User < ApplicationRecord
   end
 
   # login with fb gg
-  def self.from_omniauth(access_token,_provider)
+  def self.from_omniauth(access_token, provider)
     data = access_token.info
     user = User.where(email: data['email']).first
-    if !user
-      user=User.create(name: data['name'],
-                  email: data['email'],
-                  avatar_from: _provider,
-                  activated: true,
-                  activated_at: Time.zone.now)
-
-    end
-    user.user_info.where(datafrom: _provider).first_or_create(name: data['name'],
-                                                                   email: data['email'],
-                                                                   avatar_url: data['image'],
-                                                                   datafrom: _provider)
+    user ||= User.create(name: data['name'],
+                         email: data['email'],
+                         provider: provider,
+                         activated: true,
+                         activated_at: Time.zone.now)
+    user.user_info.where(provider: provider).first_or_create(name: data['name'],
+                                                             email: data['email'],
+                                                             avatar_url: data['image'],
+                                                             provider: provider)
     user
   end
 

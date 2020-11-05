@@ -13,10 +13,10 @@ describe OmniauthCallbacksController, type: :controller do
 
   it 'should get same user_id while login with gg fb' do
     login_with(:google_oauth2)
-    save_id=session[:user_id]
+    save_id = session[:user_id]
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
-    session[:user_id]=nil
+    session[:user_id] = nil
     login_with(:google_oauth2)
     expect(session[:user_id]).to eq(save_id)
   end

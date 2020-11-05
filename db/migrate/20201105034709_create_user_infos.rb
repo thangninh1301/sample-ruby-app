@@ -4,7 +4,7 @@ class CreateUserInfos < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :avatar_url
       t.string :email
-      t.string :datafrom
+      t.string :provider
       t.references :user, null: false, foreign_key: true
 
       t.timestamps

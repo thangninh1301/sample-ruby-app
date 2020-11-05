@@ -85,8 +85,8 @@ group :production do
 end
 
 group :development, :test do
-  gem 'faker'
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rspec-rails', '~>  4.0.1'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

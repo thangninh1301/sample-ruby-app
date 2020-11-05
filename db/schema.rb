@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_034709) do
     t.string "name"
     t.string "avatar_url"
     t.string "email"
-    t.string "datafrom"
+    t.string "provider"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_034709) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
-    t.string "avatar_from"
+    t.string "provider"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
