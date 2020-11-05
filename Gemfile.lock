@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/thoughtbot/shoulda-matchers.git
-  revision: 4ecc9d29dc8cc0458b65af82f1efcfd3bd360b0e
-  specs:
-    shoulda-matchers (4.4.1)
-      activesupport (>= 4.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -103,11 +96,6 @@ GEM
     diff-lcs (1.4.4)
     erubi (1.9.0)
     execjs (2.7.0)
-    factory_bot (6.1.0)
-      activesupport (>= 5.0.0)
-    factory_bot_rails (6.1.0)
-      factory_bot (~> 6.1.0)
-      railties (>= 5.0.0)
     faker (2.11.0)
       i18n (>= 1.6, < 2)
     faraday (1.1.0)
@@ -132,10 +120,6 @@ GEM
     guard-minitest (2.4.6)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
-    guard-rspec (4.7.3)
-      guard (~> 2.1)
-      guard-compat (~> 1.1)
-      rspec (>= 2.99.0, < 4.0)
     hashie (4.1.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
@@ -145,8 +129,6 @@ GEM
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
     jwt (2.2.2)
-    launchy (2.5.0)
-      addressable (~> 2.7)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -254,27 +236,23 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
-    rspec (3.10.0)
-      rspec-core (~> 3.10.0)
-      rspec-expectations (~> 3.10.0)
-      rspec-mocks (~> 3.10.0)
-    rspec-core (3.10.0)
-      rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.0)
+    rspec-core (3.9.3)
+      rspec-support (~> 3.9.3)
+    rspec-expectations (3.9.4)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.10.0)
-    rspec-mocks (3.10.0)
+      rspec-support (~> 3.9.0)
+    rspec-mocks (3.9.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.10.0)
-    rspec-rails (4.0.1)
-      actionpack (>= 4.2)
-      activesupport (>= 4.2)
-      railties (>= 4.2)
-      rspec-core (~> 3.9)
-      rspec-expectations (~> 3.9)
-      rspec-mocks (~> 3.9)
-      rspec-support (~> 3.9)
-    rspec-support (3.10.0)
+      rspec-support (~> 3.9.0)
+    rspec-rails (3.9.1)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.9.0)
+      rspec-expectations (~> 3.9.0)
+      rspec-mocks (~> 3.9.0)
+      rspec-support (~> 3.9.0)
+    rspec-support (3.9.4)
     rubocop (0.93.1)
       parallel (~> 1.10)
       parser (>= 2.7.1.5)
@@ -359,17 +337,14 @@ DEPENDENCIES
   bootstrap-sass (= 3.4.1)
   bootstrap-will_paginate (= 1.0.0)
   byebug
-  capybara
+  capybara (>= 2.15)
   devise
-  factory_bot_rails
-  faker
+  faker (= 2.11.0)
   figaro
   guard (= 2.16.2)
   guard-minitest (= 2.4.6)
-  guard-rspec
   image_processing (= 1.9.3)
   jbuilder (~> 2.7)
-  launchy
   listen (~> 3.2)
   mini_magick (= 4.9.5)
   minitest (= 5.11.3)
@@ -381,11 +356,10 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.2)
   rails-controller-testing (= 1.0.4)
-  rspec-rails (~> 4.0.1)
+  rspec-rails (~> 3.7)
   rubocop
   sass-rails (>= 6)
   selenium-webdriver
-  shoulda-matchers!
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3 (~> 1.4)
