@@ -42,7 +42,6 @@ class User < ApplicationRecord
     if user
       user
     else
-      password = (0...8).map { rand(65..90).chr }.join
       User.create(name: data['name'],
                   email: data['email'],
                   avatar_url: data['image'],
