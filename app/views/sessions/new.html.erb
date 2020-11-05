@@ -15,7 +15,7 @@
       <% end %>
       <%= f.submit "Log in", class: "btn btn-primary" %>
     <% end %>
-    <%= link_to "Login by google", user_google_oauth2_omniauth_authorize_path(:where => 1, :when => "Today") %>
+    <%= link_to "Login by google", user_google_oauth2_omniauth_authorize_path %>
     <%= link_to "Login by facebook", user_facebook_omniauth_authorize_path %>
 <% %>
     <p>New user? <%= link_to "Sign up now!", signup_path%></p>
