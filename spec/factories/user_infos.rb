@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :userinfo do
+  factory :user_info do
     name { "MyString" }
     avatar_url { "MyString" }
     datafrom { "MyString" }

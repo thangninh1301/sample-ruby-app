@@ -5,7 +5,7 @@ module UsersHelper
   def gravatar_for(user, options = { size: 80 })
     size = options[:size]
     if user.avatar_from
-      gravatar_url = user.userinfo.where(datafrom: user.avatar_from).first.avatar_url
+      gravatar_url = user.user_info.where(datafrom: user.avatar_from).first.avatar_url
     else
       gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
       gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"

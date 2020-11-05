@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i[facebook google_oauth2]
-  has_many :userinfo, dependent: :destroy
+  has_many :user_info, dependent: :destroy
   # finish tutorial rails
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
@@ -48,7 +48,7 @@ class User < ApplicationRecord
                   activated_at: Time.zone.now)
 
     end
-    user.userinfo.where(datafrom: _provider).first_or_create(name: data['name'],
+    user.user_info.where(datafrom: _provider).first_or_create(name: data['name'],
                                                                    email: data['email'],
                                                                    avatar_url: data['image'],
                                                                    datafrom: _provider)

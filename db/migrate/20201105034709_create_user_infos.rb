@@ -1,9 +1,9 @@
-class CreateUserinfos < ActiveRecord::Migration[6.0]
+class CreateUserInfos < ActiveRecord::Migration[6.0]
   def change
-    create_table :userinfos do |t|
+    create_table :user_infos do |t|
       t.string :name
-      t.string :email
       t.string :avatar_url
+      t.string :email
       t.string :datafrom
       t.references :user, null: false, foreign_key: true
 
