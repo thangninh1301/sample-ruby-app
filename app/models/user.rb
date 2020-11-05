@@ -48,10 +48,10 @@ class User < ApplicationRecord
                   activated_at: Time.zone.now)
 
     end
-    User.where(email: data['email']).first.userinfo.where(datafrom: _provider).first_or_create(name: data['name'],
-                                                                                               email: data['email'],
-                                                                                               avatar_url: data['image'],
-                                                                                               datafrom: _provider)
+    user.userinfo.where(datafrom: _provider).first_or_create(name: data['name'],
+                                                                   email: data['email'],
+                                                                   avatar_url: data['image'],
+                                                                   datafrom: _provider)
     user
   end
 
