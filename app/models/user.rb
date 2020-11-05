@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+  has_many :userinfo, dependent: :destroy
   # finish tutorial rails
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
@@ -36,19 +37,22 @@ class User < ApplicationRecord
   end
 
   # login with fb gg
-  def self.from_omniauth(access_token)
+  def self.from_omniauth(access_token,_provider)
     data = access_token.info
     user = User.where(email: data['email']).first
-    if user
-      user
-    else
-      User.create(name: data['name'],
+    if !user
+      user=User.create(name: data['name'],
                   email: data['email'],
-                  avatar_url: data['image'],
+                  avatar_from: _provider,
                   activated: true,
                   activated_at: Time.zone.now)
 
     end
+    User.where(email: data['email']).first.userinfo.where(datafrom: _provider).first_or_create(name: data['name'],
+                                                                                               email: data['email'],
+                                                                                               avatar_url: data['image'],
+                                                                                               datafrom: _provider)
+    user
   end
 
   def remember

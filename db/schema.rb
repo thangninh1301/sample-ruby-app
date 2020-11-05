@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_084504) do
+ActiveRecord::Schema.define(version: 2020_11_05_020452) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -63,6 +63,17 @@ ActiveRecord::Schema.define(version: 2020_11_03_084504) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "userinfos", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "avatar_url"
+    t.string "datafrom"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_userinfos_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -76,10 +87,11 @@ ActiveRecord::Schema.define(version: 2020_11_03_084504) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
-    t.string "avatar_url"
+    t.string "avatar_from"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "microposts", "users"
+  add_foreign_key "userinfos", "users"
 end
