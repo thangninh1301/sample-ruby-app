@@ -11,7 +11,7 @@ gem 'active_storage_validations', '0.8.9'
 gem 'mini_magick', '4.9.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
-
+gem 'faker'
 # resize image
 gem 'image_processing', '1.9.3'
 
@@ -74,7 +74,6 @@ group :test do
   gem 'webdrivers'
 
   gem 'capybara'
-  gem 'faker'
   gem 'guard-rspec'
   gem 'launchy'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
@@ -86,7 +85,6 @@ end
 
 group :development, :test do
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'rspec-rails', '~>  4.0.1'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
