@@ -45,10 +45,11 @@ class User < ApplicationRecord
                          provider: provider,
                          activated: true,
                          activated_at: Time.zone.now)
-    user.user_info.where(provider: provider).first_or_create(name: data['name'],
-                                                             email: data['email'],
-                                                             avatar_url: data['image'],
-                                                             provider: provider)
+    if user.persisted? then user.user_info.where(provider: provider).first_or_create(name: data['name'],
+                                                                                     email: data['email'],
+                                                                                     avatar_url: data['image'],
+                                                                                     provider: provider)
+    end
     user
   end
 
@@ -96,8 +97,7 @@ class User < ApplicationRecord
   end
 
   def feed
-    following_ids = "SELECT followed_id FROM relationships
-                      WHERE follower_id = :user_id"
+    following_ids = 'SELECT followed_id FROM relationships WHERE follower_id = :user_id'
     Micropost.where("user_id IN (#{following_ids})
                       OR user_id = :user_id", user_id: id)
   end
