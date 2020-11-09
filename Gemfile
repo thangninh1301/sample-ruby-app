@@ -10,14 +10,12 @@ ruby '2.7.1'
 gem 'active_storage_validations', '0.8.9'
 gem 'mini_magick', '4.9.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'faker'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
-
 # resize image
 gem 'image_processing', '1.9.3'
 
 gem 'bootstrap-sass', '3.4.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -51,6 +49,8 @@ gem 'will_paginate', '3.3.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3', '~> 1.4'
 end
 
 group :development do
@@ -74,7 +74,6 @@ group :test do
   gem 'webdrivers'
 
   gem 'capybara'
-  gem 'faker'
   gem 'guard-rspec'
   gem 'launchy'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
@@ -86,7 +85,6 @@ end
 
 group :development, :test do
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'rspec-rails', '~>  4.0.1'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

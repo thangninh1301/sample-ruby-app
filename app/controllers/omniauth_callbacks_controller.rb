@@ -7,8 +7,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     generic_callback('google_oauth2')
   end
 
-  def generic_callback(_provider)
-    @user = User.from_omniauth(request.env['omniauth.auth'], _provider)
+  def generic_callback(provider)
+    @user = User.from_omniauth(request.env['omniauth.auth'], provider)
     if @user.persisted?
       reset_session
       log_in resource
