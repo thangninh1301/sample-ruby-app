@@ -3,4 +3,14 @@ FactoryBot.define do
     name { Faker::Name.unique.name }
     email { Faker::Internet.email }
   end
+
+  factory :user_mike, class: User do
+    name { 'mike' }
+    email { Faker::Internet.email }
+  end
+
+  factory :another_user, class: User do
+    name { Faker::Name.unique.name }
+    email { Faker::Internet.email }
+  end
 end
