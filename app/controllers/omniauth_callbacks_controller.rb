@@ -8,7 +8,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def generic_callback(provider)
-    _provider = provider
     @user = User.from_omniauth(request.env['omniauth.auth'], provider)
     if @user.persisted?
       reset_session
