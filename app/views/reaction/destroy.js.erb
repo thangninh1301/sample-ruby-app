@@ -1,2 +1,2 @@
 $("#like-reaction-in-<%=@reaction.micropost_id %>").html("<%= escape_javascript(render('reaction/like')) %>");
-$("#like-count-in-<%=@reaction.micropost_id %>").html('<%= @micropost.count_reaction_by_icon(1) %>');
+$("#like-count-in-<%=@reaction.micropost_id %>").html('<%= @micropost.count_reaction %>');

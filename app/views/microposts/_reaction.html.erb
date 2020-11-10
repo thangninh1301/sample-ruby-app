@@ -2,35 +2,37 @@
 <span>
 <div class="container-react">
   <span class="wrap-reaction">
-    <%= image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531171/XZOPuv9_eyqlr2.png", size: "40", name: 1, class: "emoji") %>
-    <%= image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531172/uIjLl6R_cmbnqb.png", size: "40", name: 2, class: "emoji") %>
-    <%= image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531177/lsHmtDy_ycqnbp.png", size: "40", name: 3, class: "emoji") %>
-    <%= image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531177/s475u9d_o8trbg.png", size: "40", name: 4, class: "emoji") %>
-    <%= image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531172/JJuD9qb_a7gkmu.png", size: "40", name: 5, class: "emoji") %>
-    <%= image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531178/VDM3zOV_qy9fqj.png", size: "40", name: 6, class: "emoji") %>
+    <%=link_to image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531171/XZOPuv9_eyqlr2.png", size: "40", class: "emoji"),
+               reaction_index_path(:micropost_id => @micropost.id, :icon_id => 1) ,
+               :method => :post, remote: true%>
+    <%=link_to image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531172/uIjLl6R_cmbnqb.png", size: "40", class: "emoji"),
+               reaction_index_path(:micropost_id => @micropost.id, :icon_id => 2) ,
+               :method => :post, remote: true%>
+    <%=link_to image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531177/lsHmtDy_ycqnbp.png", size: "40", class: "emoji"),
+               reaction_index_path(:micropost_id => @micropost.id, :icon_id => 3) ,
+               :method => :post, remote: true%>
+    <%=link_to image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531177/s475u9d_o8trbg.png", size: "40", class: "emoji"),
+               reaction_index_path(:micropost_id => @micropost.id, :icon_id => 4) ,
+               :method => :post, remote: true%>
+    <%=link_to image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531172/JJuD9qb_a7gkmu.png", size: "40", class: "emoji"),
+               reaction_index_path(:micropost_id => @micropost.id, :icon_id => 5) ,
+               :method => :post, remote: true%>
+    <%=link_to image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531178/VDM3zOV_qy9fqj.png", size: "40", class: "emoji"),
+               reaction_index_path(:micropost_id => @micropost.id, :icon_id => 6) ,
+               :method => :post, remote: true%>
   </span>
 <span>
-  <span class="microposts-but-1" id="like-reaction-in-<%= @micropost.id %>">
-    <span>
-    <% if !@micropost.get_reaction_id(1, current_user.id) %>
+  <span class="microposts-but-1">
+  <span id="like-reaction-in-<%= @micropost.id %>">
+    <% if !@micropost.get_reaction_id(current_user.id) %>
       <%= render 'reaction/like' %>
     <% else %>
       <%= render 'reaction/unlike' %>
     <% end %>
-      <span id="like-count-in-<%= @micropost.id %>"><%= @micropost.count_reaction_by_icon(1) %></span>
-    </span>
+  </span>
+    <span id="like-count-in-<%= @micropost.id%>"><%= @micropost.count_reaction %></span>
   </span>
 </span>
 </div>
-  <!--  <span class="dislike"><%#= count[:other] %></span>-->
 </span>
 <br>
-<script>
-    $(".microposts-but-1").hover(
-        function () {
-            $(this).append($("<span> </span>"));
-        }, function () {
-            $(this).find("span").last().remove();
-        }
-    );
-</script>
