@@ -1,5 +1,4 @@
 require 'rails_helper'
-include ApplicationHelper
 
 describe ReactionController, type: :controller do
   before(:each) do
