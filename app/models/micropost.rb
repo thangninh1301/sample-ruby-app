@@ -4,7 +4,7 @@ class Micropost < ApplicationRecord
                        foreign_key: 'micropost_id',
                        dependent: :destroy
   # has_many :user_reaction, through: :reactions,source: :reactor
-
+  has_many :comments
   has_one_attached :image
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true

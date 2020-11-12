@@ -1,5 +1,6 @@
 class Reaction < ApplicationRecord
-  belongs_to :micropost, class_name: 'Micropost'
+  belongs_to :micropost, class_name: 'Micropost', optional: true
+  belongs_to :comment, class_name: 'Comment', optional: true
   belongs_to :reactor, class_name: 'User'
   validates :reactor_id, presence: true
   validates :icon_id, presence: true
