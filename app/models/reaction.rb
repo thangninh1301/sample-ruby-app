@@ -16,5 +16,5 @@ class Reaction < ApplicationRecord
     errors.add(:discount, 'icon_id_must_in_range 1-6') if icon_id > 6 || icon_id < 1
   end
 
-  scope :find_existed, ->(reactor_id, micropost_id) { where(reactor_id: reactor_id, micropost_id: micropost_id).first }
+  scope :find_existed, ->(reactor_id, micropost_id) { where(reactor_id: reactor_id, micropost_id: micropost_id) }
 end
