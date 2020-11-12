@@ -46,9 +46,11 @@ ActiveRecord::Schema.define(version: 2020_11_05_034709) do
     t.integer "icon_id"
     t.integer "reactor_id"
     t.integer "micropost_id"
+    t.integer "comment_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["icon_id", "reactor_id", "micropost_id"], name: "index_reactions_on_icon_id_and_reactor_id_and_micropost_id", unique: true
+    t.index ["comment_id"], name: "index_reactions_on_comment_id"
+    t.index ["icon_id", "reactor_id", "micropost_id", "comment_id"], name: "reaction_index_unique", unique: true
     t.index ["micropost_id"], name: "index_reactions_on_micropost_id"
     t.index ["reactor_id"], name: "index_reactions_on_reactor_id"
   end

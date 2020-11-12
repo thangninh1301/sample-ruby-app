@@ -1,3 +1,48 @@
-// Place all the styles related to the Reaction controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.container-react{
+  text-align: center;
+  background: white;
+  max-width: fit-content;
+  position: absolute;
+  &:hover{
+    background: lightgray;
+    .wrap-reaction{
+      transition-delay: 0s;
+      visibility: visible;
+    }
+  }
+  .wrap-reaction{
+    text-align: center;
+    background-color: white;
+    border-style: groove;
+    border-radius:28px;
+    position: absolute;
+    top: -70px;
+    visibility: hidden;
+    transition-delay: 0.5s;
+
+    .emoji{
+      top: 20%;
+      padding: 5px 5px 5px;
+      width: 45px;
+      height: 45px;
+      position: relative;
+      display: inline-block;
+      border-radius: 50%;
+      &:hover{
+        transform: scale(1.3);
+      }
+    }
+  }
+}
+
+.microposts-but-1{
+  display: inline-block;
+  width: 300px;
+  height: 30px;
+  &:hover{
+    transform: scale(1.3);
+  }
+  top: 10%;
+}

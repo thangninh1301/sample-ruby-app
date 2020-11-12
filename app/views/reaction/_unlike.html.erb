@@ -1,5 +1,4 @@
-
-<%= link_to image_tag("icons/liked.png", size: "20x20") ,
-            reaction_path(:id => @micropost.get_reaction_id(1,current_user.id),:micropost_id => @micropost.id),
+<%= link_to image_tag(link_by_icon(@micropost.get_reaction(current_user.id).icon_id), size: "20x20") ,
+            reaction_path(:id => @micropost.get_reaction(current_user.id),:micropost_id => @micropost.id),
             :method => :delete,remote: true%>
 &nbsp

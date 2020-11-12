@@ -17,11 +17,11 @@ class Micropost < ApplicationRecord
     image.variant(resize_to_limit: [500, 500])
   end
 
-  def get_reaction_id(icon_id, user_id)
-    reactions.find_by(icon_id: icon_id, reactor_id: user_id)
+  def get_reaction(user_id)
+    reactions.find_by(reactor_id: user_id)
   end
 
-  def count_reaction_by_icon(icon_id)
-    Reaction.where(micropost_id: id, icon_id: icon_id).count
+  def count_reaction
+    Reaction.where(micropost_id: id).count
   end
 end
