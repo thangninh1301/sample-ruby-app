@@ -4,8 +4,4 @@ module SpecTestHelper
                                           password: password,
                                           remember_me: remember_me } }
   end
-
-  def retret
-    1
-  end
 end

@@ -1,5 +1,5 @@
 <li id="micropost-<%= micropost.id %>">
-  <% @micropost=micropost %>
+  <% @micropost = micropost %>
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <span class="content">
@@ -13,5 +13,5 @@
                     data: {confirm: "You sure?"} %>
     <% end %>
   </span>
-    <span class="reaction-cls"><%= render "microposts/reaction"%></span>
+  <span class="reaction-cls"><%= render "microposts/reaction" %></span>
 </li>
