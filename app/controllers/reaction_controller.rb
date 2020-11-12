@@ -2,11 +2,10 @@ class ReactionController < ApplicationController
   before_action :logged_in_user
 
   def create
-    @reaction = Reaction.where(reactor_id: current_user.id, micropost_id: reaction_param[:micropost_id]).first
-    @reaction ||= Reaction.create(icon_id: reaction_param[:icon_id],
-                                  reactor_id: current_user.id,
-                                  micropost_id: reaction_param[:micropost_id])
-    @reaction.icon_id = reaction_param[:icon_id]
+    @reaction = Reaction.find_existed(current_user.id, reaction_param[:micropost_id]).destroy
+    @reaction = Reaction.create(icon_id: reaction_param[:icon_id],
+                                reactor_id: current_user.id,
+                                micropost_id: reaction_param[:micropost_id])
     @micropost = Micropost.find(reaction_param[:micropost_id])
     return unless @reaction.save
 

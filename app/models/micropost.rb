@@ -17,7 +17,7 @@ class Micropost < ApplicationRecord
     image.variant(resize_to_limit: [500, 500])
   end
 
-  def get_reaction_id(user_id)
+  def get_reaction(user_id)
     reactions.find_by(reactor_id: user_id)
   end
 

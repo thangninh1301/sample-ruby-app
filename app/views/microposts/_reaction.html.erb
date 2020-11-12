@@ -24,7 +24,7 @@
 <span>
   <span class="microposts-but-1">
   <span id="like-reaction-in-<%= @micropost.id %>">
-    <% if !@micropost.get_reaction_id(current_user.id) %>
+    <% if !@micropost.get_reaction(current_user.id) %>
       <%= render 'reaction/like' %>
     <% else %>
       <%= render 'reaction/unlike' %>
