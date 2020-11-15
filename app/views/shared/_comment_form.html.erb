@@ -1,6 +1,10 @@
 <%= form_with(url: comments_path) do |f| %>
   <%= f.text_field :content %>
-  <%= f.hidden_field :micropost_id, :value => @micropost.id %>
+  <% if @comment%>
+    <%= f.hidden_field :super_comment_id, value: @comment.id %>
+  <% else %>
+    <%= f.hidden_field :micropost_id, value: @micropost.id %>
+  <% end %>
   <%= f.submit %>
 <% end %>
 

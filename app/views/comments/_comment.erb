@@ -1,15 +1,28 @@
-<li id="comment-<%= comment.id %>">
-  <% @comment = comment %>
+<li id="comment-<%=comment.id%>">
   <%= link_to gravatar_for(comment.user, size: 30), comment.user %>
   <span >
     <%= link_to comment.user.name, comment.user %>
     <%= comment.content %>
   </span>
   <span class="timestamp">
-    Posted <%= time_ago_in_words(comment.created_at) %> ago.
+    <% if defined?(is_reply).nil? %>
+      <a id="reply-<%=comment.id%>" role="button">Trả lời</a>
+    <% end %>
     <% if current_user?(comment.user) %>
         <%= link_to "delete", comment, method: :delete,
                     data: {confirm: "You sure?"} %>
     <% end %>
+    Posted <%= time_ago_in_words(comment.created_at) %> ago.
   </span>
+  <% if comment.replies.any? && defined?(is_reply).nil? %>
+    <ul style="list-style-type:none;">
+      <%= render comment.replies , is_reply: 1 %>
+    </ul>
+  <% end %>
+  <div>
+    <% if defined?(is_reply).nil? %>
+      <% @comment=comment %>
+      <%= render 'shared/comment_form' %>'
+    <% end %>
+  </div>
 </li>
