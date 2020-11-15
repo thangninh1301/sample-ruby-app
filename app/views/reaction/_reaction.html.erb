@@ -1,0 +1,19 @@
+<hr style="margin-bottom: 10px;">
+<span>
+<div class="container-react">
+  <%= render 'reaction/reaction_bar' %>
+<span>
+  <span class="microposts-but-1">
+    <span id="like-reaction-in-<%= @micropost.id %>">
+      <% if !@micropost.get_reaction(current_user.id) %>
+        <%= render 'reaction/like' %>
+      <% else %>
+        <%= render 'reaction/unlike' %>
+      <% end %>
+    </span>
+    <span id="like-count-in-<%= @micropost.id %>"><%= @micropost.count_reaction %></span>
+  </span>
+</span>
+</div>
+</span>
+<br>

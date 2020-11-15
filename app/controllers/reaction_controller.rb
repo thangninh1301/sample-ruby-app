@@ -3,10 +3,15 @@ class ReactionController < ApplicationController
 
   def create
     @reaction = Reaction.find_existed(current_user.id, reaction_param[:micropost_id]).first.try(:destroy)
-    @reaction = Reaction.create(icon_id: reaction_param[:icon_id],
-                                reactor_id: current_user.id,
-                                micropost_id: reaction_param[:micropost_id])
-    @micropost = Micropost.find(reaction_param[:micropost_id])
+
+    if reaction_param[:micropost_id]
+      @micropost = Micropost.find(reaction_param[:micropost_id])
+      @reaction = @micropost.reactions.build(reaction_param)
+    else
+      @comment= Comment.find(reaction_param[:comment_id])
+      @reaction= @comment.reactions.build(reaction_param)
+    end
+    @reaction.reactor_id=current_user.id
     return unless @reaction.save
 
     respond_to do |format|
@@ -29,7 +34,7 @@ class ReactionController < ApplicationController
   private
 
   def reaction_param
-    params.permit(:micropost_id, :icon_id, :id)
+    params.permit(:micropost_id, :icon_id, :id,:comment_id)
   end
 
   def to_last_url

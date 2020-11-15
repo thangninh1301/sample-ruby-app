@@ -17,4 +17,26 @@ module ReactionHelper
       'icons/liked.png'
     end
   end
+
+  def icon_to_text(comment)
+    if comment.get_reaction(current_user.id)
+      id=comment.get_reaction(current_user.id).icon_id
+    end
+    case id
+    when 1
+      "like"
+    when 2
+      "tym"
+    when 3
+      "haha"
+    when 4
+      'wow'
+    when 5
+      'sad'
+    when 6
+      'angry'
+    else
+      'like'
+    end
+  end
 end

@@ -29,4 +29,8 @@ class Comment < ApplicationRecord
   end
 
   scope :existed_relpy, -> { where(id: super_comment_id) }
+
+  def get_reaction(user_id)
+    reactions.find_by(reactor_id: user_id)
+  end
 end
