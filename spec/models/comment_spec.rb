@@ -7,13 +7,13 @@ RSpec.describe Comment, type: :model do
     @comment = @micropost.comments.new(user_id: @user_mike.id, content: 'test content')
   end
 
-  it "@comment should valid" do
+  it '@comment should valid' do
     expect(@comment.valid?).to eq(true)
   end
 
-  it "blank content should invalid" do
-    @comment.content=''
-    expect(@comment.valid?).to eq(false )
+  it 'blank content should invalid' do
+    @comment.content = ''
+    expect(@comment.valid?).to eq(false)
   end
 
   it '@@comment with both micropost_id and super_cmt_id are nil shoud invalid' do
@@ -25,6 +25,4 @@ RSpec.describe Comment, type: :model do
     @comment.super_comment_id = 3
     expect(@comment.valid?).to eq(false)
   end
-
-
 end
