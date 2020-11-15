@@ -7,12 +7,6 @@ describe CommentsController, type: :controller do
     @save_cmt = @user_mike.comments.create(content: 'Lorem ipsum', micropost_id: @micropost.id)
   end
 
-  # it 'should ' do
-  #   session[:user_id] = @user_mike.id
-  #   post :create, params: { icon_id: 2, micropost_id: @micropost.id }
-  #   expect(Reaction.last.micropost_id).to eq(@micropost.id)
-  # end
-
   it 'should success create new cmt' do
     session[:user_id] = @user_mike.id
     post :create, params: { content: 'this is test string', micropost_id: @micropost.id }

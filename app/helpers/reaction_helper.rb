@@ -19,16 +19,14 @@ module ReactionHelper
   end
 
   def icon_to_text(comment)
-    if comment.get_reaction(current_user.id)
-      id=comment.get_reaction(current_user.id).icon_id
-    end
+    id = comment.get_reaction(current_user.id).icon_id if comment.get_reaction(current_user.id)
     case id
     when 1
-      "like"
+      'like'
     when 2
-      "tym"
+      'tym'
     when 3
-      "haha"
+      'haha'
     when 4
       'wow'
     when 5

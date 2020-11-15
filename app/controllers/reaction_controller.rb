@@ -8,10 +8,10 @@ class ReactionController < ApplicationController
       @micropost = Micropost.find(reaction_param[:micropost_id])
       @reaction = @micropost.reactions.build(reaction_param)
     else
-      @comment= Comment.find(reaction_param[:comment_id])
-      @reaction= @comment.reactions.build(reaction_param)
+      @comment = Comment.find(reaction_param[:comment_id])
+      @reaction = @comment.reactions.build(reaction_param)
     end
-    @reaction.reactor_id=current_user.id
+    @reaction.reactor_id = current_user.id
     return unless @reaction.save
 
     respond_to do |format|
@@ -31,12 +31,6 @@ class ReactionController < ApplicationController
     end
   end
 
-  private
-
-  def reaction_param
-    params.permit(:micropost_id, :icon_id, :id,:comment_id)
-  end
-
   def to_last_url
     if request.referrer.nil? || request.referrer == microposts_url
       redirect_to root_url
@@ -44,4 +38,11 @@ class ReactionController < ApplicationController
       redirect_to request.referrer
     end
   end
+  private
+
+  def reaction_param
+    params.permit(:micropost_id, :icon_id, :id, :comment_id)
+  end
+
+
 end

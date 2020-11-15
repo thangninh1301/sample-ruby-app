@@ -17,12 +17,12 @@
     <span class="reaction-cls"><%= render "reaction/reaction" %></span>
   </div>
   <% if @micropost.comments.any? %>
-    <ul style="list-style-type:none;">
+    <ul style="list-style-type:none;" id="micropost-cmtlist-<%= micropost.id %>">
       <%= render @micropost.comments %>
     </ul>
   <% end %>
   <div>
-    <%= render 'shared/comment_form' %>'
+    <%= render 'shared/comment_micropost_form' %>'
   </div>
 
 </li>

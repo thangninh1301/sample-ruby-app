@@ -1,0 +1,6 @@
+<%if @super_comment %>
+$("#cmt-cmtlist-<%= @super_comment.id %>").append('<%= escape_javascript(render('comments/comment'))%>');
+<%else %>
+$("#micropost-cmtlist-<%= @micropost.id %>").append('<%= escape_javascript(render('comments/comment'))%>');
+<% end %>
+

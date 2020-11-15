@@ -3,28 +3,28 @@ class CommentsController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def create
-    puts params.inspect
     @comment = current_user.comments.build(comment_params)
+    @micropost= Micropost.find(@comment.micropost_id)
+    if @comment.super_comment_id
+      @comment.micropost_id=nil
+      @super_comment = Comment.find(@comment.super_comment_id)
+    end
+    return unless @comment.save
+    @passing_comment=@comment
+    respond_to do |format|
+      format.html { to_last_url }
+      format.js {}
+    end
 
-    if @comment.save
-      flash[:success] = 'comment created!'
-    else
-      flash[:error] = 'comment not created!'
-    end
-    if request.referrer.nil? || request.referrer == microposts_url
-      redirect_to root_url
-    else
-      redirect_to request.referrer
-    end
   end
 
   def destroy
     @comment.destroy
-    flash[:success] = 'comment deleted'
-    if request.referrer.nil? || request.referrer == microposts_url
-      redirect_to root_url
-    else
-      redirect_to request.referrer
+    return unless @comment.save
+    @passing_comment=@comment
+    respond_to do |format|
+      format.html { to_last_url }
+      format.js {}
     end
   end
 
