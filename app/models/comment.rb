@@ -10,14 +10,15 @@ class Comment < ApplicationRecord
   validates :content, presence: true, length: { maximum: 140 }
   validates :micropost_id, presence: true, allow_nil: true
   validates :super_comment_id, presence: true, allow_nil: true
-  validate :micropost_id_or_super_comment_id_to_nil
+  validate :micropost_id_or_super_comment_id_to_nil,
+            :replies_should_not_have_reply
 
   def micropost_id_or_super_comment_id_to_nil
     errors.add(:discount, 'neither micropost_id or super_comment_id must be nil') if (nil_micropost? && nil_super_comment?) || (!nil_micropost? && !nil_super_comment?)
   end
 
   def replies_should_not_have_reply
-    errors.add(:discount, 'neither micropost_id or super_comment_id must be nil') if existed_relpy.first.micropost_id
+    errors.add(:discount, 'replies_should_not_have_reply') if super_comment_id && Comment.find(super_comment_id).micropost.nil?
   end
 
   def nil_micropost?
@@ -27,8 +28,6 @@ class Comment < ApplicationRecord
   def nil_super_comment?
     super_comment_id.nil?
   end
-
-  scope :existed_relpy, -> { where(id: super_comment_id) }
 
   def get_reaction(user_id)
     reactions.find_by(reactor_id: user_id)

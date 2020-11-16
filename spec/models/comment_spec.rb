@@ -20,7 +20,36 @@ RSpec.describe Comment, type: :model do
   end
 
   it '@@comment with both micropost_id and super_cmt_id are not nil shoud invalid' do
-    comment.super_comment_id = 3
-    expect(comment.valid?).to eq(false)
+    comment.save
+    cmt_test=Comment.new(user_id: user_mike.id, content: 'test content')
+    cmt_test.super_comment_id=comment
+    cmt_test.micropost_id=micropost
+    expect(cmt_test.valid?).to eq(false)
   end
+
+  it 'should return true if nil micropost' do
+    comment.micropost_id = nil
+    expect(comment.nil_micropost?).to eq(true)
+  end
+
+  it 'should return true if not nil micropost' do
+    expect(comment.nil_micropost?).to eq(false)
+  end
+
+  it 'should return true if nil_super_comment?' do
+    expect(comment.nil_super_comment?).to eq(true)
+  end
+
+  it 'should return false if not nil_super_comment?' do
+    comment.super_comment_id=1
+    expect(comment.nil_super_comment?).to eq(false)
+  end
+
+  it 'replies should not have reply' do
+    comment.save
+    comment_f2=comment.replies.create(content: 'Lorem ipsum', user_id: user_mike.id)
+    comment_f3=comment_f2.replies.create(content: 'Lorem ipsum', user_id: user_mike.id)
+    expect(comment_f3.valid?).to eq(false)
+  end
+
 end
