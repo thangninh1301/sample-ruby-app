@@ -19,7 +19,7 @@ module ReactionHelper
   end
 
   def icon_to_text(comment)
-    id = comment.get_reaction(current_user.id).icon_id if comment.get_reaction(current_user.id)
+    id = comment.get_reaction(current_user.id).try(:icon_id)
     case id
     when 1
       'like'
