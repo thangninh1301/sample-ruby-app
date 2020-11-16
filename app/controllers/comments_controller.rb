@@ -9,7 +9,10 @@ class CommentsController < ApplicationController
       @comment.micropost_id = nil
       @super_comment = Comment.find(@comment.super_comment_id)
     end
-    return unless @comment.save
+
+    if !@comment.save
+      @error=@comment.errors.to_s
+    end
 
     @passing_comment = @comment
     respond_to do |format|
@@ -20,9 +23,6 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    return unless @comment.save
-
-    @passing_comment = @comment
     respond_to do |format|
       format.html { to_last_url }
       format.js {}
