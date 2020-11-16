@@ -1,6 +1,6 @@
 class Comment < ApplicationRecord
   belongs_to :user
-  belongs_to :micropost, optional: true
+  belongs_to :micropost
   belongs_to :parent, class_name: 'Comment', optional: true
 
   has_many :replies, class_name: 'Comment', foreign_key: 'super_comment_id'
@@ -8,17 +8,12 @@ class Comment < ApplicationRecord
 
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
-  validates :micropost_id, presence: true, allow_nil: true
+  validates :micropost_id, presence: true
   validates :super_comment_id, presence: true, allow_nil: true
-  validate :micropost_id_or_super_comment_id_to_nil,
-           :replies_should_not_have_reply
-
-  def micropost_id_or_super_comment_id_to_nil
-    errors.add(:discount, 'neither micropost_id or super_comment_id must be nil') if (nil_micropost? && nil_super_comment?) || (!nil_micropost? && !nil_super_comment?)
-  end
+  validate  :replies_should_not_have_reply
 
   def replies_should_not_have_reply
-    errors.add(:discount, 'replies_should_not_have_reply') if super_comment_id && Comment.find(super_comment_id).micropost.nil?
+    errors.add(:discount, 'replies_should_not_have_reply') if super_comment_id && !Comment.find(super_comment_id).super_comment_id.nil?
   end
 
   def nil_micropost?

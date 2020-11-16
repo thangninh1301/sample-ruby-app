@@ -5,10 +5,7 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(comment_params)
     @micropost = Micropost.find(@comment.micropost_id)
-    if @comment.super_comment_id
-      @comment.micropost_id = nil
-      @super_comment = Comment.find(@comment.super_comment_id)
-    end
+    @super_comment = Comment.find(@comment.super_comment_id) if @comment.super_comment_id
 
     @error = @comment.errors.to_s unless @comment.save
 

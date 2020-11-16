@@ -25,4 +25,8 @@ class Micropost < ApplicationRecord
   def count_reaction
     Reaction.where(micropost_id: id).count
   end
+
+  def f1_comments
+    comments.where(super_comment_id: nil)
+  end
 end
