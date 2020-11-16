@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
       @error=@comment.errors.to_s
     end
 
-    @passing_comment = @comment
+    @used_ajax = true
     respond_to do |format|
       format.html { to_last_url }
       format.js {}

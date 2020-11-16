@@ -1,10 +1,10 @@
-<% if @passing_comment;
-     comment = @passing_comment;
+<% if @used_ajax;
+     comment = @comment;
    end %>
 
 <li id="comment-<%= comment.id %>">
   <% not_reply = defined?(cmt).nil? %>
-  <% if @passing_comment;
+  <% if @used_ajax;
        not_reply = false;
      end %>
   <% @comment = comment %>
