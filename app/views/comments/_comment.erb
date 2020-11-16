@@ -38,7 +38,7 @@
       <% end %>
     </ul>
     <% if not_reply %>
-      <%= @comment = comment; render 'shared/comment_form' %>
+      <%= render 'shared/comment_form',comment: @comment %>
     <% end %>
   </div>
 </li>
