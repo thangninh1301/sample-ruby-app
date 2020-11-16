@@ -1,11 +1,15 @@
-<% if @passing_comment; comment=@passing_comment;end %>
+<% if @passing_comment;
+     comment = @passing_comment;
+   end %>
 
-<li id="comment-<%=comment.id%>">
-  <% not_reply=defined?(cmt).nil? %>
-  <% if @passing_comment; not_reply=false ;end %>
-  <% @comment=comment %>
+<li id="comment-<%= comment.id %>">
+  <% not_reply = defined?(cmt).nil? %>
+  <% if @passing_comment;
+       not_reply = false;
+     end %>
+  <% @comment = comment %>
   <%= link_to gravatar_for(comment.user, size: 30), comment.user %>
-  <span >
+  <span>
     <%= link_to comment.user.name, comment.user %>
     <%= comment.content %>
   </span>
@@ -24,17 +28,17 @@
     </span>
 
 
-    <span style="padding-left: 300px;" >Posted <%= time_ago_in_words(comment.created_at) %> ago.</span>
+    <span style="padding-left: 300px;">Posted <%= time_ago_in_words(comment.created_at) %> ago.</span>
 
   </span>
   <div id="cmt-cmtbar-<%= comment.id %>">
     <ul style="list-style-type:none;" id="cmt-cmtlist-<%= comment.id %>">
-      <% if comment.replies.any? && not_reply%>
-       <%= render comment.replies , cmt: 1 %>
+      <% if comment.replies.any? && not_reply %>
+        <%= render comment.replies, cmt: 1 %>
       <% end %>
     </ul>
     <% if not_reply %>
-      <%=@comment=comment; render 'shared/comment_form' %>
+      <%= @comment = comment; render 'shared/comment_form' %>
     <% end %>
   </div>
 </li>

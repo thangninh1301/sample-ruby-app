@@ -45,10 +45,11 @@ class User < ApplicationRecord
                          provider: provider,
                          activated: true,
                          activated_at: Time.zone.now)
-    if user.persisted? then user.user_info.where(provider: provider).first_or_create(name: data['name'],
-                                                                                     email: data['email'],
-                                                                                     avatar_url: data['image'],
-                                                                                     provider: provider)
+    if user.persisted?
+      user.user_info.where(provider: provider).first_or_create(name: data['name'],
+                                                               email: data['email'],
+                                                               avatar_url: data['image'],
+                                                               provider: provider)
     end
     user
   end
