@@ -9,13 +9,13 @@ describe CommentsController, type: :controller do
 
   it 'should success create new cmt' do
     session[:user_id] = @user_mike.id
-    post :create, params: { content: 'this is test string', micropost_id: @micropost.id }
+    post :create,xhr: true, params: { content: 'this is test string', micropost_id: @micropost.id }
     expect(Comment.last.content).to eq('this is test string')
   end
 
   it 'should success del cmt' do
     session[:user_id] = @user_mike.id
-    post :destroy, params: { id: @save_cmt.id }
+    post :destroy,xhr: true, params: { id: @save_cmt.id }
     expect(@user_mike.comments.count).to eq(0)
   end
 
