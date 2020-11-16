@@ -1,7 +1,7 @@
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :micropost
-  belongs_to :parent, class_name: 'Comment', optional: true
+  belongs_to :parent_comment_id, class_name: 'Comment', optional: true
 
   has_many :replies, class_name: 'Comment', foreign_key: 'super_comment_id'
   has_many :reactions, dependent: :destroy
