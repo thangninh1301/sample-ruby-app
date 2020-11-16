@@ -38,11 +38,10 @@ class ReactionController < ApplicationController
       redirect_to request.referrer
     end
   end
+
   private
 
   def reaction_param
     params.permit(:micropost_id, :icon_id, :id, :comment_id)
   end
-
-
 end

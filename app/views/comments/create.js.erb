@@ -2,5 +2,6 @@
 $("#cmt-cmtlist-<%= @super_comment.id %>").append('<%= escape_javascript(render('comments/comment'))%>');
 <%else %>
 $("#micropost-cmtlist-<%= @micropost.id %>").append('<%= escape_javascript(render('comments/comment'))%>');
+$("#cmt-cmtbar-<%= @comment.id %>").append('<%= escape_javascript(render 'shared/comment_form')%>');
 <% end %>
 

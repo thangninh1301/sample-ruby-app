@@ -1,0 +1,4 @@
+$("#micropost-cmtlist-<%= @micropost.id %>").append('<%= escape_javascript(render @micropost.comments)%>');
+$("#micropost-cmtbar-<%= @micropost.id %>").append('<%= escape_javascript(render 'shared/comment_micropost_form')%>');
+
+

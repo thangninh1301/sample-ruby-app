@@ -15,9 +15,6 @@
         <%= render 'reaction/cmt_reaction_bar' %>
         <span class="comments-but-1">
           <%= render 'reaction/cmt_reaction_icon' %>
-          <% if not_reply %>
-            <a id="reply-<%=comment.id%> " role="button">Trả lời</a>
-          <% end %>
           <% if current_user?(comment.user) %>
           <%= link_to "delete", comment, method: :delete, remote: true,
                       data: {confirm: "You sure?"} %>
@@ -30,13 +27,13 @@
     <span style="padding-left: 300px;" >Posted <%= time_ago_in_words(comment.created_at) %> ago.</span>
 
   </span>
-  <% if comment.replies.any? && not_reply%>
+  <div id="cmt-cmtbar-<%= comment.id %>">
     <ul style="list-style-type:none;" id="cmt-cmtlist-<%= comment.id %>">
-      <%= render comment.replies , cmt: 1 %>
+      <% if comment.replies.any? && not_reply%>
+       <%= render comment.replies , cmt: 1 %>
+      <% end %>
     </ul>
-  <% end %>
-  <div>
-    <% if not_reply%>
+    <% if not_reply %>
       <%=@comment=comment; render 'shared/comment_form' %>
     <% end %>
   </div>
