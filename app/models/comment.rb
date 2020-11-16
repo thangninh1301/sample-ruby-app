@@ -11,7 +11,7 @@ class Comment < ApplicationRecord
   validates :micropost_id, presence: true, allow_nil: true
   validates :super_comment_id, presence: true, allow_nil: true
   validate :micropost_id_or_super_comment_id_to_nil,
-            :replies_should_not_have_reply
+           :replies_should_not_have_reply
 
   def micropost_id_or_super_comment_id_to_nil
     errors.add(:discount, 'neither micropost_id or super_comment_id must be nil') if (nil_micropost? && nil_super_comment?) || (!nil_micropost? && !nil_super_comment?)

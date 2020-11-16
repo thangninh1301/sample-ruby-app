@@ -10,9 +10,7 @@ class CommentsController < ApplicationController
       @super_comment = Comment.find(@comment.super_comment_id)
     end
 
-    if !@comment.save
-      @error=@comment.errors.to_s
-    end
+    @error = @comment.errors.to_s unless @comment.save
 
     @used_ajax = true
     respond_to do |format|

@@ -31,14 +31,6 @@ class ReactionController < ApplicationController
     end
   end
 
-  def to_last_url
-    if request.referrer.nil? || request.referrer == microposts_url
-      redirect_to root_url
-    else
-      redirect_to request.referrer
-    end
-  end
-
   private
 
   def reaction_param

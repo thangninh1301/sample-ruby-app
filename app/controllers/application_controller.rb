@@ -11,4 +11,12 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
+
+  def to_last_url
+    if request.referrer.nil? || request.referrer == microposts_url
+      redirect_to root_url
+    else
+      redirect_to request.referrer
+    end
+  end
 end
