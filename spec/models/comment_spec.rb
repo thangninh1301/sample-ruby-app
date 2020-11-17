@@ -22,7 +22,7 @@ RSpec.describe Comment, type: :model do
   it '@@comment with both micropost_id and super_cmt_id are not nil shoud invalid' do
     comment.save
     cmt_test = Comment.new(user_id: user_mike.id, content: 'test content')
-    cmt_test.super_comment_id = comment
+    cmt_test.parent_comment_id = comment
     cmt_test.micropost_id = micropost
     expect(cmt_test.valid?).to eq(false)
   end
@@ -41,7 +41,7 @@ RSpec.describe Comment, type: :model do
   end
 
   it 'should return false if not nil_super_comment?' do
-    comment.super_comment_id = 1
+    comment.parent_comment_id = 1
     expect(comment.nil_super_comment?).to eq(false)
   end
 
