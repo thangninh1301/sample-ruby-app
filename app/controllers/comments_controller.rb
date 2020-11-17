@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(comment_params)
     @micropost = Micropost.find(@comment.micropost_id)
-    @super_comment = Comment.find(@comment.super_comment_id) if @comment.super_comment_id
+    @parent_comment_id = Comment.find(@comment.parent_comment_id) if @comment.parent_comment_id
 
     @error = @comment.errors.to_s unless @comment.save
 
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.permit(:content, :image, :micropost_id, :super_comment_id)
+    params.permit(:content, :image, :micropost_id, :parent_comment_id)
   end
 
   private

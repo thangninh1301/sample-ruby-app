@@ -3,7 +3,7 @@ class CreateComments < ActiveRecord::Migration[6.0]
     create_table :comments do |t|
       t.text :content
       t.integer :micropost_id
-      t.integer :super_comment_id
+      t.integer :parent_comment_id
       t.references :user, null: false, foreign_key: true
 
       t.timestamps

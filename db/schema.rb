@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_11_12_085203) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.integer "micropost_id"
-    t.integer "super_comment_id"
+    t.integer "parent_comment_id"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

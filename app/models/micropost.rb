@@ -27,6 +27,6 @@ class Micropost < ApplicationRecord
   end
 
   def f1_comments
-    comments.where(super_comment_id: nil)
+    comments.where(parent_comment_id: nil)
   end
 end
