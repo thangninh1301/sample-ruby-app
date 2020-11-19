@@ -8,7 +8,7 @@ RSpec.describe Micropost, type: :model do
     expect(micropost.valid?).to eq(true)
   end
 
-  it 'micropost shoud valid' do
+  it 'micropost shoud f1 should have 1 reply' do
     cmt = micropost.comments.create(user_id: user_mike.id, content: 'test content')
     cmt.replies.create(user_id: user_mike.id, content: 'test content', micropost_id: micropost.id)
     expect(micropost.comments.count).to eq(2)
