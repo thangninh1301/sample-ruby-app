@@ -44,4 +44,14 @@ RSpec.describe CommentsController, type: :controller do
     post :destroy, xhr: true, params: { id: save_cmt.id }
     expect(user_mike.comments.count).to eq(save)
   end
+
+  it 'should not save cmt when not logged in', skip_before: true do
+    post :create, params: { content: 'this is test string', micropost_id: micropost.id }
+    expect(Comment.count).to eq(save)
+  end
+
+  it 'should not delete cmt when not logged in', skip_before: true do
+    post :destroy, xhr: true, params: { id: save_cmt.id }
+    expect(user_mike.comments.count).to eq(save)
+  end
 end

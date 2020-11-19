@@ -2,7 +2,7 @@
 <span>
 <div class="container-react">
   <%= render 'reaction/reaction_bar' %>
-  <span>
+<span>
   <span class="microposts-but-1">
     <span id="like-reaction-in-<%= @micropost.id %>">
       <% if !@micropost.get_reaction(current_user.id) %>
@@ -17,6 +17,6 @@
 </div>
 </span>
 <span style="padding-left: 500px;">
-  <%= link_to image_tag("icons/comment.png", size: "20x20"), comment_path(id: @micropost.id), remote: true %>
+  <%= link_to image_tag("icons/comment.png", size: "20x20") ,     comment_path(id: @micropost.id), remote: true %>
 </span>
 <br>
