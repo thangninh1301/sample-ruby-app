@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(comment_params)
     @micropost = Micropost.find(@comment.micropost_id)
-    @parent_comment_id = Comment.find(@comment.parent_comment_id) if @comment.parent_comment_id
+    @parent_comment = Comment.find(@comment.parent_comment_id) if @comment.parent_comment_id
 
     @error = @comment.errors.to_s unless @comment.save
 
