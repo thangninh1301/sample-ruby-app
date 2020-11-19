@@ -5,11 +5,10 @@ class ReactionController < ApplicationController
     @reaction = Reaction.find_existed(current_user.id, reaction_param[:micropost_id]).first.try(:destroy)
     if reaction_param[:micropost_id]
       @micropost = Micropost.find(reaction_param[:micropost_id])
-      @reaction = @micropost.reactions.build(reaction_param)
     else
       @comment = Comment.find(reaction_param[:comment_id])
-      @reaction = @comment.reactions.build(reaction_param)
     end
+    @reaction = @comment.reactions.build(reaction_param)
     @reaction.reactor_id = current_user.id
     @error = @reaction.errors.to_s unless @reaction.save
 
