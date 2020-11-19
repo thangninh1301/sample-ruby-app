@@ -3,14 +3,9 @@ class ReactionController < ApplicationController
 
   def create
     @reaction = Reaction.find_existed(current_user.id, reaction_param[:micropost_id]).first.try(:destroy)
-    if reaction_param[:micropost_id]
-      @micropost = Micropost.find(reaction_param[:micropost_id])
-    else
-      @comment = Comment.find(reaction_param[:comment_id])
-    end
-    @reaction = @comment.reactions.build(reaction_param)
+    @reaction = obj_reacted.reactions.build(reaction_param)
     @reaction.reactor_id = current_user.id
-    @error = @reaction.errors.to_s unless @reaction.save
+    @error = @comment.errors unless @reaction.save
 
     respond_to do |format|
       format.html { to_last_url }
@@ -21,7 +16,7 @@ class ReactionController < ApplicationController
   def destroy
     @micropost = Micropost.find(reaction_param[:micropost_id])
     @reaction = Reaction.find(reaction_param[:id])
-    return unless @reaction.destroy
+    @reaction.destroy
 
     respond_to do |format|
       format.html { to_last_url }
@@ -30,6 +25,14 @@ class ReactionController < ApplicationController
   end
 
   private
+
+  def obj_reacted
+    if reaction_param[:micropost_id]
+      @micropost = Micropost.find(reaction_param[:micropost_id])
+    else
+      @comment = Comment.find(reaction_param[:comment_id])
+    end
+  end
 
   def reaction_param
     params.permit(:micropost_id, :icon_id, :id, :comment_id)
