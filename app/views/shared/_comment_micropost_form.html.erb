@@ -1,5 +1,5 @@
 <%= form_with(url: comments_path, remote: true) do |f| %>
-  <%= f.text_field :content %>
+  <%= f.text_field :content, id: 'text-field-cmt-micropost-'+@micropost.id.to_s  %>
   <%= f.hidden_field :micropost_id, value: @micropost.id %>
   <%= f.submit %>
 <% end %>

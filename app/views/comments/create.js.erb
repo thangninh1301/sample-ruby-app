@@ -3,8 +3,10 @@
 <% else %>
   <%if @parent_comment %>
     $("#cmt-cmtlist-<%= @parent_comment.id %>").append('<%= escape_javascript(render('comments/comment'))%>');
+    $("#text-field-cmt-<%= @parent_comment.id %>").val("")
   <%else %>
     $("#micropost-cmtlist-<%= @micropost.id %>").append('<%= escape_javascript(render('comments/comment'))%>');
+    $("#text-field-cmt-micropost-<%= @micropost.id %>").val("")
     $("#cmt-cmtbar-<%= @comment.id %>").append('<%= escape_javascript(render 'shared/comment_form')%>');
   <% end %>
 <% end %>
