@@ -11,7 +11,7 @@ class ReactionController < ApplicationController
       @reaction = @comment.reactions.build(reaction_param)
     end
     @reaction.reactor_id = current_user.id
-    return unless @reaction.save
+    @error = @reaction.errors.to_s unless @reaction.save
 
     respond_to do |format|
       format.html { to_last_url }
