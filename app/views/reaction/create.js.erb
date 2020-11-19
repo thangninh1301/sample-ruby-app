@@ -1,5 +1,5 @@
 <%if @error %>
-alert(<%= @error %>);
+  alert(<%= @error %>);
 <% else %>
   <% if @micropost %>
     $("#like-reaction-in-<%=@reaction.micropost_id %>").html("<%= escape_javascript(render('reaction/unlike')) %>");
