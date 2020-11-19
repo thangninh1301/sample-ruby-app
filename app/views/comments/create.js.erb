@@ -1,5 +1,5 @@
 <%if @error %>
-  console.log(<%= @error %>);
+  alert(<%= @error %>);
 <% else %>
   <%if @super_comment %>
   $("#cmt-cmtlist-<%= @super_comment.id %>").append('<%= escape_javascript(render('comments/comment'))%>');
