@@ -12,7 +12,7 @@
   <span class="timestamp">
     <span class="container-react">
       <%= render 'reaction/reaction_bar' %>
-      <span class="comments-but-1">
+      <span class="comments-btn-1">
         <%= render 'reaction/cmt_reaction_icon' %>
         <% if current_user?(@comment.user) %>
         <%= link_to "delete", @comment, method: :delete, remote: true,
