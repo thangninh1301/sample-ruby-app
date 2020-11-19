@@ -1,6 +1,6 @@
 <%= form_with(url: comments_path, remote: true) do |f| %>
   <%= f.text_field :content %>
-  <%= f.hidden_field :parent_comment_id, value: @comment.id %>
+  <%= f.hidden_field :parent_comment_id, value: comment.id %>
   <%= f.hidden_field :micropost_id, value: @micropost.id %>
   <%= f.submit class: "hiden-btn" %>
 <% end %>

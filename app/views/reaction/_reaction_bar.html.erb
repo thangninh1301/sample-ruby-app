@@ -1,3 +1,4 @@
+<% @comment= comment if defined?(comment) # de phan biet duoc reaction cua cmt hay micropost%>
 <span class="wrap-reaction">
   <%= link_to image_tag("https://res.cloudinary.com/prvnbist/image/upload/v1492531171/XZOPuv9_eyqlr2.png", size: "40", class: "emoji"),
               reaction_index_path(target_reaction_params(1)), method: :post, remote: true %>

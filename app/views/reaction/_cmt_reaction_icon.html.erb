@@ -1,1 +1,2 @@
-<a id="reaction-comment-<%= @comment.id %>" role="button"><%= icon_to_text(@comment) %></a>
+<% comment||=@comment #khi su dung aajx ajax %>
+<a id="reaction-comment-<%= comment.id %>" role="button"><%= icon_to_text(comment) %></a>
