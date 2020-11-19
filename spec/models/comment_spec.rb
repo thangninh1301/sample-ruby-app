@@ -32,7 +32,7 @@ RSpec.describe Comment, type: :model do
     expect(comment.nil_micropost?).to eq(true)
   end
 
-  it 'should return true if not nil micropost' do
+  it 'should return false if not nil micropost' do
     expect(comment.nil_micropost?).to eq(false)
   end
 
