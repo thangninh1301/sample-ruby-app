@@ -7,8 +7,8 @@ class CommentsController < ApplicationController
     @micropost = Micropost.find(@comment.micropost_id)
     @parent_comment = Comment.find(@comment.parent_comment_id) if @comment.parent_comment_id
     @error = @comment.errors.to_s unless @comment.save
-
     @used_ajax = true
+
     respond_to do |format|
       format.html { to_last_url }
       format.js {}
@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
+
     respond_to do |format|
       format.html { to_last_url }
       format.js {}
