@@ -1,8 +1,6 @@
 class Micropost < ApplicationRecord
   belongs_to :user
-  has_many :reactions, class_name: 'Reaction',
-                       foreign_key: 'micropost_id',
-                       dependent: :destroy
+  has_many :reactions, dependent: :destroy, as: :react_to
   # has_many :user_reaction, through: :reactions,source: :reactor
   has_many :comments
   has_one_attached :image
@@ -21,10 +19,10 @@ class Micropost < ApplicationRecord
   end
 
   def count_reaction
-    Reaction.where(micropost_id: id).count
+    Reaction.find_by_micropost(id).count
   end
 
-  def f1_comments
-    comments.where(parent_comment_id: nil)
+  def comment_in_micropost
+    Comment.not_reply.by_micropost(id)
   end
 end

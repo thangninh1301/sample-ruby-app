@@ -58,11 +58,15 @@ ActiveRecord::Schema.define(version: 2020_11_12_085203) do
     t.integer "reactor_id"
     t.integer "micropost_id"
     t.integer "comment_id"
+    t.integer "react_to_id"
+    t.string "react_to_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["comment_id"], name: "index_reactions_on_comment_id"
     t.index ["icon_id", "reactor_id", "micropost_id", "comment_id"], name: "reaction_index_unique", unique: true
     t.index ["micropost_id"], name: "index_reactions_on_micropost_id"
+    t.index ["react_to_id"], name: "index_reactions_on_react_to_id"
+    t.index ["react_to_type"], name: "index_reactions_on_react_to_type"
     t.index ["reactor_id"], name: "index_reactions_on_reactor_id"
   end
 

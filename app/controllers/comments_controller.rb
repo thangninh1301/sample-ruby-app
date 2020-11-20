@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(comment_params)
     @micropost = Micropost.find(@comment.micropost_id)
     @parent_comment = Comment.find(@comment.parent_comment_id) if @comment.parent_comment_id
-    @error = @comment.errors.to_s unless @comment.save
+    @error = @comment.errors.messages unless @comment.save
     @used_ajax = true
 
     respond_to do |format|

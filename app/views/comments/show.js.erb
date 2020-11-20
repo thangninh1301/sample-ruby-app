@@ -1,3 +1,3 @@
-$("#micropost-cmtlist-<%= @micropost.id %>").append('<%= escape_javascript(render @micropost.f1_comments)%>');
-$("#micropost-cmtbar-<%= @micropost.id %>").append('<%= escape_javascript(render 'shared/comment_micropost_form')%>');
-$("#micropost-cmt-btn-<%=@micropost.id%>").remove();
+$("#micropost-cmtlist-<%= @micropost.id %>").append('<%= escape_javascript(render @micropost.comment_in_micropost) %>');
+$("#micropost-cmtbar-<%= @micropost.id %>").append('<%= escape_javascript(render 'shared/comment_micropost_form') %>');
+$("#micropost-cmt-btn-<%= @micropost.id %>").remove();

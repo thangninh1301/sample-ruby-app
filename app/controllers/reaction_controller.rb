@@ -2,10 +2,14 @@ class ReactionController < ApplicationController
   before_action :logged_in_user
 
   def create
-    @reaction = Reaction.find_existed(current_user.id, reaction_param[:micropost_id]).first.try(:destroy)
-    @reaction = obj_reacted.reactions.build(reaction_param)
-    @reaction.reactor_id = current_user.id
-    @error = @comment.errors unless @reaction.save
+    @reaction = Reaction.find_existed(@current_user.id, reaction_param[:react_to_type], reaction_param[:react_to_id]).first.try(:destroy)
+    if reaction_param[:react_to_type] == 'Micropost'
+      @micropost = Micropost.find(reaction_param[:react_to_id])
+    else
+      @comment = Comment.find(reaction_param[:react_to_id])
+    end
+    @reaction = @current_user.reactions.build(reaction_param)
+    @error = @reaction.errors.messages unless @reaction.save
 
     respond_to do |format|
       format.html { to_last_url }
@@ -26,15 +30,7 @@ class ReactionController < ApplicationController
 
   private
 
-  def obj_reacted
-    if reaction_param[:micropost_id]
-      @micropost = Micropost.find(reaction_param[:micropost_id])
-    else
-      @comment = Comment.find(reaction_param[:comment_id])
-    end
-  end
-
   def reaction_param
-    params.permit(:micropost_id, :icon_id, :id, :comment_id)
+    params.permit(:micropost_id, :icon_id, :id, :comment_id, :react_to_id, :react_to_type)
   end
 end

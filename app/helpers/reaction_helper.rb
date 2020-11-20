@@ -37,10 +37,4 @@ module ReactionHelper
       'like'
     end
   end
-
-  def target_reaction_params(icon_id)
-    hash = @comment ? { comment_id: @comment.id } : { micropost_id: @micropost.id }
-    hash[:icon_id] = icon_id
-    hash
-  end
 end

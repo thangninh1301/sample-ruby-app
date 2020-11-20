@@ -1,12 +1,22 @@
-<%if @error %>
-  alert(<%= @error %>);
-<% else %>
-  <%if @parent_comment %>
-    $("#cmt-cmtlist-<%= @parent_comment.id %>").append('<%= escape_javascript(render('comments/comment'))%>');
+<% if @parent_comment %>
+  $("#text-field-errors-cmt-<%= @parent_comment.id %>").empty()
+  <% if @error
+       @error.each do |key, val| %>
+      $("#text-field-errors-cmt-<%= @parent_comment.id %>").append("<li><%= key.to_s + val.first.to_s %></li>")
+    <% end %>
+  <% else %>
+    $("#cmt-cmtlist-<%= @parent_comment.id %>").append('<%= escape_javascript(render('comments/comment')) %>');
     $("#text-field-cmt-<%= @parent_comment.id %>").val("")
-  <%else %>
-    $("#micropost-cmtlist-<%= @micropost.id %>").append('<%= escape_javascript(render('comments/comment'))%>');
+  <% end %>
+<% else %>
+  $("#text-field-errors-micropost-<%= @micropost.id %>").empty()
+  <% if @error
+       @error.each do |key, val| %>
+      $("#text-field-errors-micropost-<%= @micropost.id %>").append("<li><%= key.to_s + val.first.to_s %></li>")
+    <% end %>
+  <% else %>
+    $("#micropost-cmtlist-<%= @micropost.id %>").append('<%= escape_javascript(render('comments/comment')) %>');
     $("#text-field-cmt-micropost-<%= @micropost.id %>").val("")
-    $("#cmt-cmtbar-<%= @comment.id %>").append('<%= escape_javascript(render 'shared/comment_form')%>');
+    $("#cmt-cmtbar-<%= @comment.id %>").append('<%= escape_javascript(render 'shared/comment_form') %>');
   <% end %>
 <% end %>

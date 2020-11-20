@@ -1,35 +1,35 @@
-<% comment||=@comment %>
-<li id="comment-<%= comment.id %>">
-  <% not_reply = defined?(cmt).nil? %>
-  <% if @used_ajax;
+<% @comment = defined?(comment) ? comment : @comment %>
+<li id="comment-<%= @comment.id %>">
+  <% not_reply = defined?(cmt).nil?
+     if @used_ajax;
        not_reply = false;
      end %>
-  <%= link_to gravatar_for(comment.user, size: 30), comment.user %>
+  <%= link_to gravatar_for(@comment.user, size: 30), @comment.user %>
   <span>
-    <%= link_to comment.user.name, comment.user %>
-    <%= comment.content %>
+    <%= link_to @comment.user.name, @comment.user %>
+    <%= @comment.content %>
   </span>
   <span class="timestamp">
     <span class="container-react">
-      <%= render 'reaction/reaction_bar',comment: comment %>
+      <%= render 'reaction/reaction_bar' %>
       <span class="comments-btn-1">
-        <%= render 'reaction/cmt_reaction_icon', comment: comment %>
-        <% if current_user?(comment.user) %>
-        <%= link_to "delete", comment, method: :delete, remote: true,
+        <%= render 'reaction/cmt_reaction_icon' %>
+        <% if current_user?(@comment.user) %>
+        <%= link_to "delete", @comment, method: :delete, remote: true,
                     data: {confirm: "You sure?"} %>
         <% end %>
       </span>
     </span>
-    <span style="padding-left: 300px;">Posted <%= time_ago_in_words(comment.created_at) %> ago.</span>
+    <span style="padding-left: 300px;">Posted <%= time_ago_in_words(@comment.created_at) %> ago.</span>
   </span>
-  <div id="cmt-cmtbar-<%= comment.id %>">
-    <ul style="list-style-type:none;" id="cmt-cmtlist-<%= comment.id %>">
-      <% if comment.replies.any? && not_reply %>
-        <%= render comment.replies, cmt: 1 %>
+  <div id="cmt-cmtbar-<%= @comment.id %>">
+    <ul style="list-style-type:none;" id="cmt-cmtlist-<%= @comment.id %>">
+      <% if @comment.replies.any? && not_reply %>
+        <%= render @comment.replies, cmt: 1 %>
       <% end %>
     </ul>
     <% if not_reply %>
-      <%= render 'shared/comment_form',comment: comment %>
+      <%= @comment = comment; render 'shared/comment_form' %>
     <% end %>
   </div>
 </li>
