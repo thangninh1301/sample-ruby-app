@@ -2,7 +2,7 @@ class ReactionController < ApplicationController
   before_action :logged_in_user
 
   def create
-    @reaction = Reaction.find_existed(@current_user.id, reaction_param[:react_to_type], reaction_param[:react_to_id]).first.try(:destroy)
+    @reaction = Reaction.find_existed(@current_user.id, reaction_param[:react_to_type], reaction_param[:react_to_id]).try(:destroy)
     if reaction_param[:react_to_type] == 'Micropost'
       @micropost = Micropost.find(reaction_param[:react_to_id])
     else

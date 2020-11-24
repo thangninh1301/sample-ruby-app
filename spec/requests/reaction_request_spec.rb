@@ -22,7 +22,7 @@ describe ReactionController, type: :controller do
       expect do
         post :create, xhr: true, params: { react_to_id: comment.id, react_to_type: comment.class.name, icon_id: 4 }
       end
-        .to change(Reaction, :count).by eq(1)
+        .to change(Reaction, :count).by(1)
       expect(response).to render_template('reaction/create')
     end
 

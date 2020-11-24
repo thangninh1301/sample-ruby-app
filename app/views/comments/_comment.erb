@@ -11,7 +11,7 @@
   </span>
   <span class="timestamp">
     <span class="container-react">
-      <%= render 'reaction/reaction_bar' %>
+      <%= render 'reaction/reaction_bar',obj: @comment %>
       <span class="comments-btn-1">
         <%= render 'reaction/cmt_reaction_icon' %>
         <% if current_user?(@comment.user) %>
