@@ -20,7 +20,12 @@ RSpec.describe Reaction, type: :model do
     expect(reaction.valid?).to eq(false)
   end
 
-  it 'icon_id out of range should invalid' do
+  it 'should invalid with null react_to' do
+    reaction.react_to_id = nil
+    expect(reaction.valid?).to eq(false)
+  end
+
+  it 'should invalid if icon_id out of range' do
     reaction.icon_id = 10
     expect(reaction.valid?).to eq(false)
   end

@@ -3,6 +3,7 @@ class Reaction < ApplicationRecord
   belongs_to :reactor, class_name: 'User'
   validates :reactor_id, presence: true
   validates :icon_id, presence: true
+  validates :react_to_id, presence: true
   validate :icon_id_must_in_range
 
   def icon_id_must_in_range

@@ -19,7 +19,7 @@ RSpec.describe Comment, type: :model do
     expect(comment.valid?).to eq(false)
   end
 
-  it 'is replies should not have reply' do
+  it 'should not have reply if cmt is replies' do
     comment.save
     comment_f2 = comment.replies.create(content: 'Lorem ipsum', user_id: user_mike.id, micropost_id: micropost.id)
     comment_f3 = comment_f2.replies.create(content: 'Lorem ipsum', user_id: user_mike.id, micropost_id: micropost.id)
