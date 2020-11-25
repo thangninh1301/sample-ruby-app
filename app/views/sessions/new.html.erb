@@ -1,5 +1,5 @@
 <% provide(:title, "Log in") %>
-<% remember_value= true %>
+<% remember_value = true %>
 <h1>Log in</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -10,14 +10,14 @@
       <%= link_to "(forgot password)", new_password_reset_path %>
       <%= f.password_field :password, class: 'form-control' %>
       <%= f.label :remember_me, class: "checkbox inline" do %>
-        <%= f.check_box :remember_me,id:"remember-checkbox-id", :checked => false %>
+        <%= f.check_box :remember_me, id: "remember-checkbox-id", :checked => false %>
         <span>Remember me on this computer</span>
       <% end %>
       <%= f.submit "Log in", class: "btn btn-primary" %>
     <% end %>
     <%= link_to "Login by google", user_google_oauth2_omniauth_authorize_path %>
     <%= link_to "Login by facebook", user_facebook_omniauth_authorize_path %>
-<% %>
-    <p>New user? <%= link_to "Sign up now!", signup_path%></p>
+    <% %>
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
   </div>
 </div>
