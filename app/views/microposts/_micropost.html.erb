@@ -13,5 +13,11 @@
                     data: {confirm: "You sure?"} %>
     <% end %>
   </span>
-  <span class="reaction-cls"><%= render "microposts/reaction" %></span>
+  <div>
+    <span class="reaction-cls"><%= render "reaction/reaction" %></span>
+  </div>
+  <div id="micropost-cmtbar-<%= micropost.id %>">
+    <ul style="list-style-type:none;" id="micropost-cmtlist-<%= micropost.id %>" class="micropost-cmtlist">
+    </ul>
+  </div>
 </li>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_05_034709) do
+ActiveRecord::Schema.define(version: 2020_11_12_085203) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 2020_11_05_034709) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "micropost_id"
+    t.integer "parent_comment_id"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "created_at"], name: "index_comments_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "microposts", force: :cascade do |t|
     t.text "content"
     t.integer "user_id", null: false
@@ -47,11 +58,15 @@ ActiveRecord::Schema.define(version: 2020_11_05_034709) do
     t.integer "reactor_id"
     t.integer "micropost_id"
     t.integer "comment_id"
+    t.integer "react_to_id"
+    t.string "react_to_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["comment_id"], name: "index_reactions_on_comment_id"
     t.index ["icon_id", "reactor_id", "micropost_id", "comment_id"], name: "reaction_index_unique", unique: true
     t.index ["micropost_id"], name: "index_reactions_on_micropost_id"
+    t.index ["react_to_id"], name: "index_reactions_on_react_to_id"
+    t.index ["react_to_type"], name: "index_reactions_on_react_to_type"
     t.index ["reactor_id"], name: "index_reactions_on_reactor_id"
   end
 
@@ -94,6 +109,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_034709) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "users"
   add_foreign_key "microposts", "users"
   add_foreign_key "user_infos", "users"
 end

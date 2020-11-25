@@ -1,0 +1,20 @@
+<hr style="margin-bottom: 10px;">
+<span>
+  <div class="container-react">
+    <%= render 'reaction/reaction_bar',obj: @micropost %>
+    <span class="microposts-btn-1">
+      <span id="like-reaction-in-<%= @micropost.id %>">
+        <% if @micropost.get_reaction(current_user.id) %>
+          <%= render 'reaction/unlike' %>
+        <% else %>
+          <%= render 'reaction/like' %>
+        <% end %>
+      </span>
+      <span id="like-count-in-<%= @micropost.id %>"><%= @micropost.count_reaction %></span>
+    </span>
+  </div>
+</span>
+<span style="padding-left: 500px;">
+  <%= link_to image_tag("icons/comment.png", size: "20x20"), comment_path(id: @micropost.id),id: "micropost-cmt-btn-"+@micropost.id.to_s, remote: true %>
+</span>
+<br>

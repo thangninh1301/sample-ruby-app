@@ -1,0 +1,7 @@
+<%= form_with(url: comments_path, remote: true) do |f| %>
+  <ul id="text-field-errors-cmt-<%= @comment.id.to_s %>"></ul>
+  <%= f.text_field :content, id: 'text-field-cmt-' + @comment.id.to_s %>
+  <%= f.hidden_field :parent_comment_id, value: @comment.id %>
+  <%= f.hidden_field :micropost_id, value: @micropost.id %>
+  <%= f.submit class: "hiden-btn" %>
+<% end %>

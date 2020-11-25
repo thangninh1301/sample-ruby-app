@@ -1,3 +1,7 @@
-$("#like-reaction-in-<%=@reaction.micropost_id %>").html("<%= escape_javascript(render('reaction/unlike')) %>");
-$("#like-count-in-<%=@reaction.micropost_id %>").html('<%= @micropost.count_reaction%>');
-
+<% if @micropost %>
+  $("#like-reaction-in-<%= @reaction.react_to_id %>").html("<%= escape_javascript(render('reaction/unlike')) %>");
+  $("#like-count-in-<%= @reaction.react_to_id %>").html('<%= @micropost.count_reaction %>');
+<% end %>
+<% if @comment %>
+  $("#reaction-comment-<%= @reaction.react_to_id %>").html("<%= escape_javascript(render('reaction/cmt_reaction_icon')) %>");
+<% end %>
