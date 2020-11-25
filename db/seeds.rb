@@ -50,6 +50,7 @@ User_liked.each do |each_user|
   microposts.each do |micropost|
     Reaction.create!(icon_id: 1,
                      reactor_id: each_user.id,
-                     micropost_id: micropost.id)
+                     react_to_id: micropost.id,
+                     react_to_type: micropost.class.name)
   end
 end
