@@ -104,4 +104,4 @@ gem 'byebug'
 gem 'figaro'
 
 # csvtozip task
-gem 'draper'
+gem 'rubyzip', require: 'zip'
