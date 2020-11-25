@@ -102,3 +102,6 @@ gem 'omniauth-facebook'
 # dev varible, debug
 gem 'byebug'
 gem 'figaro'
+
+# csvtozip task
+gem 'draper'
