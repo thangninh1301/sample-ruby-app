@@ -11,3 +11,5 @@ AllCops:
     - !ruby/regexp /old_and_unused\.rb$/
 Metrics/ClassLength:
   Enabled: false
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']

@@ -4,7 +4,6 @@ class ExportCsvController < ApplicationController
     @micropost_csv = ExportCsvService.new current_user.microposts, Micropost::CSV_ATTRIBUTES, %w[Date Post], current_user
     @following_csv = ExportCsvService.new current_user.following, User::CSV_ATTRIBUTES, %w[Date Name], current_user
     @followers_csv = ExportCsvService.new current_user.followers, User::CSV_ATTRIBUTES, %w[Date Name], current_user
-    puts Micropost.all.count
     respond_to do |format|
       format.zip { send_data zip_file.read, filename: 'CSV.zip' }
     end
