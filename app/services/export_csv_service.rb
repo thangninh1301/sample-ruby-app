@@ -1,11 +1,10 @@
 class ExportCsvService
   require 'csv'
 
-  def initialize(objects, attributes, header, current_user)
+  def initialize(objects, attributes, header)
     @attributes = attributes
     @objects = objects
     @header = header.map(&:to_s)
-    @current_user = current_user
   end
 
   def perform

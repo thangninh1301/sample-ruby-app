@@ -4,9 +4,9 @@ describe ExportCsvController, type: :controller do
   let(:user_mike) { create(:user_mike) }
   let(:another_user) { create(:another_user) }
   let!(:micropost) { user_mike.microposts.create(content: 'Lorem ipsum') }
-  let(:micropost_csv) { ExportCsvService.new Micropost.last_month.by_user(user_mike), Micropost::CSV_ATTRIBUTES, %w[Date Post], user_mike }
-  let(:following_csv) { ExportCsvService.new user_mike.following_last_month, User::CSV_ATTRIBUTES, %w[Date Name], user_mike }
-  let(:followers_csv) { ExportCsvService.new user_mike.followed_last_month, User::CSV_ATTRIBUTES, %w[Date Name], user_mike }
+  let(:micropost_csv) { ExportCsvService.new Micropost.last_month.by_user(user_mike), Micropost::CSV_ATTRIBUTES, %w[Date Post] }
+  let(:following_csv) { ExportCsvService.new user_mike.following_last_month, User::CSV_ATTRIBUTES, %w[Date Name] }
+  let(:followers_csv) { ExportCsvService.new user_mike.followed_last_month, User::CSV_ATTRIBUTES, %w[Date Name] }
   context 'when user is logged in' do
     let(:hash) { assigns(:hash) }
     before(:each) do
@@ -57,10 +57,6 @@ describe ExportCsvController, type: :controller do
         expect(hash['followers'].perform).to eq("Date,Name\n")
       end
     end
-  end
-
-  it 'should include micropost content' do
-    expect(micropost_csv.perform).to include('Lorem ipsum')
   end
 
   context 'with zip_file in class ExportCsvController' do
