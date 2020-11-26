@@ -14,7 +14,7 @@ describe ExportCsvController, type: :controller do
       another_user.follow(user_mike)
     end
 
-    context 'with new created (<1.month)' do
+    context 'with new created (<1.month) do download zip' do
       before(:each) do
         get :index, xhr: true
       end
@@ -38,7 +38,7 @@ describe ExportCsvController, type: :controller do
       end
     end
 
-    context 'with old created (>1.month)' do
+    context 'with old created (>1.month) do download zip' do
       before(:each) do
         Relationship.update_all(created_at: Time.now - 2.month)
         Micropost.update_all(created_at: Time.now - 2.month)
@@ -85,5 +85,10 @@ describe ExportCsvController, type: :controller do
       expect(@list_file_name).to include('followers.csv')
       expect(@list_file_name).to include('micropost.csv')
     end
+  end
+
+  it 'should redirect to root if not logged in' do
+    get :index, xhr: true
+    expect(response).to redirect_to login_url
   end
 end
