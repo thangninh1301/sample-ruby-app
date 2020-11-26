@@ -103,6 +103,16 @@ class User < ApplicationRecord
     BCrypt::Password.new(digest).is_password?(token)
   end
 
+  def following_last_month
+    following_ids = "SELECT followed_id FROM relationships WHERE follower_id = #{id} and created_at > ?"
+    User.where("id IN (#{following_ids})", Time.now - 1.month)
+  end
+
+  def followed_last_month
+    follower_ids = "SELECT follower_id FROM relationships WHERE followed_id = #{id} and created_at > ?"
+    User.where("id IN (#{follower_ids})", Time.now - 1.month)
+  end
+
   def feed
     following_ids = 'SELECT followed_id FROM relationships WHERE follower_id = :user_id'
     Micropost.where("user_id IN (#{following_ids})

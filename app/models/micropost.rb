@@ -12,6 +12,9 @@ class Micropost < ApplicationRecord
 
   CSV_ATTRIBUTES = %w[created_at content].freeze
 
+  scope :last_month, -> { where(created_at: (Time.now - 1.month)..Time.now) }
+  scope :by_user, ->(user) { where(user_id: user.id) }
+
   def display_image
     image.variant(resize_to_limit: [500, 500])
   end

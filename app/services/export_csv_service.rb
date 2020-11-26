@@ -12,9 +12,7 @@ class ExportCsvService
     CSV.generate do |csv|
       csv << header
       objects.each do |object|
-        if (Time.now - created_time(object)) < 1.month
-          (csv << attributes.map { |attr| object.public_send(attr) })
-        end
+        (csv << attributes.map { |attr| object.public_send(attr) })
       end
     end
   end
