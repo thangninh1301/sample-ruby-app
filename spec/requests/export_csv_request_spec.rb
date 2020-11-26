@@ -8,6 +8,7 @@ describe ExportCsvController, type: :controller do
   let(:following_csv) { ExportCsvService.new user_mike.following, User::CSV_ATTRIBUTES, %w[Date Name], user_mike }
   let(:followers_csv) { ExportCsvService.new user_mike.followers, User::CSV_ATTRIBUTES, %w[Date Name], user_mike }
   context 'when user is logged in' do
+    let(:hash) { assigns(:hash) }
     before(:each) do
       session[:user_id] = user_mike.id
       user_mike.follow(another_user)
@@ -20,15 +21,15 @@ describe ExportCsvController, type: :controller do
       end
 
       it 'should include micropost in csv file' do
-        expect(assigns(:micropost_csv).perform).to include('Lorem ipsum')
+        expect(hash['micropost'].perform).to include('Lorem ipsum')
       end
 
       it 'should include following user in csv file' do
-        expect(assigns(:following_csv).perform).to include(another_user.name)
+        expect(hash['following'].perform).to include(another_user.name)
       end
 
       it 'should include followed user in csv file' do
-        expect(assigns(:followers_csv).perform).to include(another_user.name)
+        expect(hash['followers'].perform).to include(another_user.name)
       end
 
       it 'should include zip in header' do
@@ -45,15 +46,15 @@ describe ExportCsvController, type: :controller do
         get :index, xhr: true
       end
       it 'should not include micropost in csv file' do
-        expect(assigns(:micropost_csv).perform).to eq("Date,Post\n")
+        expect(hash['micropost'].perform).to eq("Date,Post\n")
       end
 
       it 'should not include following in csv file' do
-        expect(assigns(:following_csv).perform).to eq("Date,Name\n")
+        expect(hash['following'].perform).to eq("Date,Name\n")
       end
 
       it 'should not include follower in csv file' do
-        expect(assigns(:followers_csv).perform).to eq("Date,Name\n")
+        expect(hash['followers'].perform).to eq("Date,Name\n")
       end
     end
   end
@@ -67,12 +68,16 @@ describe ExportCsvController, type: :controller do
   end
 
   context 'with zip_file in class ExportCsvController' do
+    let(:hash) do
+      hash = {}
+      hash['micropost'] = micropost_csv
+      hash['following'] = following_csv
+      hash['followers'] = followers_csv
+      hash
+    end
     before(:each) do
       @list_file_name = []
-      obj = ExportCsvController.new
-      obj.instance_variable_set(:@micropost_csv, micropost_csv)
-      obj.instance_variable_set(:@following_csv, following_csv)
-      obj.instance_variable_set(:@followers_csv, followers_csv)
+      obj = ExportZipService.new hash
       Zip::File.open_buffer(obj.send(:zip_file)) do |zip|
         zip.each do |each|
           @list_file_name << each.name
