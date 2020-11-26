@@ -20,10 +20,4 @@ class ExportCsvService
   private
 
   attr_reader :attributes, :objects, :header
-
-  def created_time(object)
-    is_user = object.instance_of? User
-    temp = is_user ? Relationship.find_relationship(@current_user.id, object.id).first : object
-    temp.created_at
-  end
 end

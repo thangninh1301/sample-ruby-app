@@ -59,10 +59,6 @@ describe ExportCsvController, type: :controller do
     end
   end
 
-  it 'should return micropost created_at' do
-    expect(micropost_csv.send(:created_time, micropost)).to eq(micropost.created_at)
-  end
-
   it 'should include micropost content' do
     expect(micropost_csv.perform).to include('Lorem ipsum')
   end
