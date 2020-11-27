@@ -10,6 +10,11 @@ class Micropost < ApplicationRecord
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png], message: 'must be a valid image format' },
                     size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
 
+  CSV_ATTRIBUTES = %w[created_at content].freeze
+
+  scope :last_month, -> { where(created_at: (Time.now - 1.month)..Time.now) }
+  scope :by_user, ->(user) { where(user_id: user.id) }
+
   def display_image
     image.variant(resize_to_limit: [500, 500])
   end

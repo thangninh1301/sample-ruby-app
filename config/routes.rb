@@ -26,5 +26,6 @@ Rails.application.routes.draw do
   resources :microposts, only: %i[create destroy]
   resources :relationships, only: %i[create destroy]
   resources :reaction, only: %i[create destroy]
+  resources :export_csv, only: %i[index]
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 end

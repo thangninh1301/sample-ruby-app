@@ -24,6 +24,9 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password validations: false
+
+  CSV_ATTRIBUTES = %w[created_at name].freeze
+
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   # Returns the hash digest of the given string.
   def self.digest(string)
@@ -98,6 +101,16 @@ class User < ApplicationRecord
     return false if digest.nil?
 
     BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  def following_last_month
+    following_ids = Relationship.last_month.where(follower_id: id).pluck(:followed_id)
+    User.where(id: following_ids)
+  end
+
+  def followed_last_month
+    follower_ids = Relationship.last_month.where(followed_id: id).pluck(:follower_id)
+    User.where(id: follower_ids)
   end
 
   def feed
