@@ -22,5 +22,6 @@ describe ExportCsvService do
     expect(@list_file_name.count).to eq(hash.count)
     expect(@list_file_name).to include('first.csv')
     expect(@list_file_name).to include('second.csv')
+    expect(zip_service.assigns(:hash)).to eq(hash)
   end
 end

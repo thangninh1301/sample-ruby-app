@@ -59,31 +59,6 @@ describe ExportCsvController, type: :controller do
     end
   end
 
-  context 'with zip_file in class ExportCsvController' do
-    let(:hash) do
-      hash = {}
-      hash['micropost'] = micropost_csv
-      hash['following'] = following_csv
-      hash['followers'] = followers_csv
-      hash
-    end
-    before(:each) do
-      @list_file_name = []
-      obj = ExportZipService.new hash
-      Zip::File.open_buffer(obj.send(:zip_file)) do |zip|
-        zip.each do |each|
-          @list_file_name << each.name
-        end
-      end
-    end
-    it 'should include 3 file' do
-      expect(@list_file_name.count).to eq(3)
-      expect(@list_file_name).to include('following.csv')
-      expect(@list_file_name).to include('followers.csv')
-      expect(@list_file_name).to include('micropost.csv')
-    end
-  end
-
   it 'should redirect to root if not logged in' do
     get :index, xhr: true
     expect(response).to redirect_to login_url
