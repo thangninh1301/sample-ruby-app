@@ -1,7 +1,11 @@
 describe ExportCsvService do
   let(:user_mike) { create(:user_mike) }
   let!(:micropost) { user_mike.microposts.create(content: 'Lorem ipsum') }
-  let(:micropost_csv) { ExportCsvService.new Micropost.last_month.by_user(user_mike), Micropost::CSV_ATTRIBUTES, %w[Date Post] }
+  let(:micropost_csv) do
+    ExportCsvService.new Micropost.last_month.by_user(user_mike),
+                         Micropost::CSV_ATTRIBUTES,
+                         %w[Date Post]
+  end
   let(:hash) do
     hash = {}
     hash['first'] = micropost_csv
