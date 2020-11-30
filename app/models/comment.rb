@@ -16,7 +16,9 @@ class Comment < ApplicationRecord
   scope :not_reply, -> { where(parent_comment_id: nil) }
 
   def replies_should_not_have_reply
-    errors.add(:discount, 'replies_should_not_have_reply') if parent_comment_id && Comment.find(parent_comment_id).parent_comment_id.present?
+    return unless parent_comment_id && Comment.find(parent_comment_id).parent_comment_id.present?
+
+    errors.add(:discount, 'replies_should_not_have_reply')
   end
 
   def get_reaction(user_id)

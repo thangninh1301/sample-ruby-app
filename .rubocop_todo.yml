@@ -98,9 +98,6 @@ Style/GuardClause:
 Style/IfUnlessModifier:
   Exclude:
     - 'bin/bundle'
-    #de sua trong pull rieng
-    - 'app/models/comment.rb'
-    #de sua trong pull rieng
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: SafeForConstants.
@@ -132,8 +129,4 @@ Style/StringConcatenation:
 Layout/LineLength:
   Max: 120
   Exclude:
-    #de sua trong pull rieng
-    - 'spec/requests/omniauth_callbacks_request_spec.rb'
     - 'bin/bundle'
-    - 'app/models/reaction.rb'
-    - 'app/models/comment.rb'
