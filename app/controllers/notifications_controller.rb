@@ -1,3 +1,2 @@
 class NotificationsController < ApplicationController
-
 end

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :notification do
-    event { "MyString" }
+    event { 'MyString' }
   end
 end
