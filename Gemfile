@@ -105,3 +105,5 @@ gem 'figaro'
 
 # csvtozip task
 gem 'rubyzip', require: 'zip'
+
+gem 'redis'

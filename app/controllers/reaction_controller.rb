@@ -7,7 +7,7 @@ class ReactionController < ApplicationController
                                  reactor_id: @current_user.id).try(:destroy)
     @reaction = @current_user.reactions.build(reaction_param)
     if @reaction.save
-    @reaction.notifications.create(user_id: react_to_object.user_id)
+      @reaction.notifications.create(user_id: react_to_object.user_id)
     else
       @error = @reaction.errors.messages
     end
