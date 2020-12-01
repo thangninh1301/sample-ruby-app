@@ -1,5 +1,6 @@
 Hi <%= @notification.user.name%>,
 You have 1 notification
+<%= link_to @user_create_action.name,@user_create_action %>
 <%="da #{@notification.source_type.downcase}"  %>
 click de xem
 <%= link_to click, @user %>

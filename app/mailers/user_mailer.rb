@@ -12,7 +12,7 @@ class UserMailer < ApplicationMailer
 
   def notification(notification)
     @notification = notification
-    @user = user_create_action(notification)
+    @user_create_action = user_create_action(notification)
     mail to: notification.user.email, subject: 'Notification'
   end
 end
