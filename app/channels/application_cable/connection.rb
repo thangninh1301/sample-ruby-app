@@ -16,7 +16,7 @@ module ApplicationCable
     end
 
     def session
-      cookies.encrypted[Rails.application.config.session_options[:key]]
+      @request.session
     end
   end
 end
