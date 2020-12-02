@@ -46,4 +46,4 @@ yarn-debug.log*
 .idea
 .idea/*
 .DS_Store
-/package-lock.json
+.editorconfig
