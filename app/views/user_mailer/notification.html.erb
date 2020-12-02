@@ -4,7 +4,7 @@
 </p>
 <div class="notification-item">
 	<span class="user"><%= link_to @user_create_action.name, @user_create_action %></span>
-	<span class="content">      <%= "da #{@notification.source_type.downcase}" %></span>
+	<span class="content"><%= "da #{@notification.source_type.downcase}" %></span>
 	<div><%= time_ago_in_words(@notification.source.created_at) %> ago.</div>
 	<h4 class="item-title"><%= @notification.source_type %></h4>
 </div>
