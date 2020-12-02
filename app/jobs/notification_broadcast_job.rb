@@ -2,7 +2,8 @@ class NotificationBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(notification, user_id)
-    ActionCable.server.broadcast "user_notification_#{user_id}", { counter: counter(user_id), notification: render_notification(notification) }
+    ActionCable.server.broadcast "user_notification_#{user_id}", { counter: counter(user_id),
+                                                                   notification: render_notification(notification) }
   end
 
   private
