@@ -32,8 +32,8 @@ RSpec.describe NotificationsChannel, type: :channel do
       stub_connection current_user: nil
     end
     it 'should not subscribe' do
-      subscribe
-      expect(subscription.streams.count).to eq(0)
+      expect { subscribe }
+        .not_to change(Comment, :count)
     end
   end
 end
