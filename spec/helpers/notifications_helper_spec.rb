@@ -1,15 +1,17 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the NotificationsHelper. For example:
-#
-# describe NotificationsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe NotificationsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user_mike) { create(:user_mike) }
+  let(:micropost) { user_mike.microposts.create(content: 'Lorem ipsum') }
+  let(:another_user) {create(:another_user)}
+  let(:comment) { micropost.comments.create(user_id: another_user.id, content: 'test content') }
+  let!(:notification) { comment.notifications.create(user_id: micropost.user_id) }
+
+  it "should return another_user who created comment" do
+    expect(user_create_action(notification)).to eq(another_user)
+  end
+
+  it "should return comment content" do
+    expect(item_info(notification)).to eq(comment.content)
+  end
 end
