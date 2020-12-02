@@ -18,8 +18,7 @@
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Help", help_path %></li>
         <% if logged_in? %>
-          <li><%= render 'notifications/feed_notification' %></li>
-          <li><%= link_to "Users", users_path %></li>
+                    <li><%= link_to "Users", users_path %></li>
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
             Account <b class="caret"></b>
           </a>
@@ -35,6 +34,7 @@
         <% else %>
           <li><%= link_to "Log in", login_path %></li>
         <% end %>
+        <li><%= render 'notifications/feed_notification' %></li>
       </ul>
     </nav>
   </div>

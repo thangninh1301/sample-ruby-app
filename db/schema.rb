@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_063339) do
+ActiveRecord::Schema.define(version: 2020_12_02_091938) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_063339) do
     t.string "source_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_seen", default: false
     t.index ["source_id"], name: "index_notifications_on_source_id"
     t.index ["source_type"], name: "index_notifications_on_source_type"
     t.index ["user_id"], name: "index_notifications_on_user_id"

@@ -11,7 +11,10 @@ consumer.subscriptions.create("NotificationsChannel", {
 
     received(data) {
         // Called when there's incoming data on the websocket for this channel
-        $('#notifications-counter').html(data.counter)
+        let element_counter=$('#notifications-counter')
+        let val= parseInt(element_counter.html())
+        element_counter.html(++val)
+        element_counter.css("visibility","visible")
         $('#notifications-list').prepend(data.notification)
     }
 });

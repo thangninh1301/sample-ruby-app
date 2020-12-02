@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :relationships, only: %i[create destroy]
   resources :reaction, only: %i[create destroy]
   resources :export_csv, only: %i[index]
+  resources :notifications, only: %i[show update]
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   mount ActionCable.server => '/cable'
