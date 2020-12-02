@@ -44,3 +44,5 @@ yarn-debug.log*
 /config/application.yml
 
 .idea
+*.DS_Store
+.DS_Store
