@@ -1,4 +1,5 @@
 Hi <%= @notification.user.name %>,
-You have 1 notification
-<%= link_to @user_create_action.name, @user_create_action %>
+You have 1 notification, click to see: <%= root_url %>
+<%= @user_create_action.name %>
 <%= "da #{@notification.source_type.downcase}" %>
+¬
