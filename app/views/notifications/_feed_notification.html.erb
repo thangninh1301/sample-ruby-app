@@ -1,20 +1,18 @@
 <div class="dropdown_notifications">
-  <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
-    <i class="glyphicon glyphicon-bell"></i>
-  </a>
-
-  <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
-
-    <div class="notification-heading"><h4 class="menu-title">Notifications</h4>
-      <h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
-    </div>
-    <li class="divider"></li>
-    <div class="notifications-wrapper" id='notifications-list'>
-      <%= render current_user.notifications.reverse %>
-    </div>
-    <li class="divider"></li>
-    <div class="notification-footer">
-      <h4 class="menu-title">Count: <span id='notifications-counter'><%=current_user.notifications.count %></span></h4></div>
-  </ul>
-
+	<a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+		<i class="glyphicon glyphicon-bell"></i>
+	</a>
+	<ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+		<div class="notification-heading"><h4 class="menu-title">Notifications</h4>
+			<h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
+		</div>
+		<li class="divider"></li>
+		<div class="notifications-wrapper" id='notifications-list'>
+			<%= render current_user.notifications.reverse %>
+		</div>
+		<li class="divider"></li>
+		<div class="notification-footer">
+			<h4 class="menu-title">Count: <span id='notifications-counter'><%= current_user.notifications.count %></span></h4>
+		</div>
+	</ul>
 </div>
