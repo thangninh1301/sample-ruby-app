@@ -1,10 +1,10 @@
 <h1>Sample App</h1> <p>Hi <%= @notification.user.name %> </p>
 <p>
-	You have 1 notification,click to see: <%= link_to "click me", root_url %>
+  You have 1 notification,click to see: <%= link_to "click me", root_url %>
 </p>
 <div class="notification-item">
-	<span class="user"><%= link_to @user_create_action.name, @user_create_action %></span>
-	<span class="content"><%= "da #{@notification.source_type.downcase}" %></span>
-	<div><%= time_ago_in_words(@notification.source.created_at) %> ago.</div>
-	<h4 class="item-title"><%= @notification.source_type %></h4>
+  <span class="user"><%= link_to @user_create_action.name, @user_create_action %></span>
+  <span class="content"><%= "had #{@notification.source_type.downcase} you" %></span>
+  <div><%= time_ago_in_words(@notification.source.created_at) %> ago.</div>
+  <h4 class="item-title"><%= @notification.source_type %></h4>
 </div>
