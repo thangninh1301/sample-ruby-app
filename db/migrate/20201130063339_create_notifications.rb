@@ -4,6 +4,7 @@ class CreateNotifications < ActiveRecord::Migration[6.0]
       t.references :user, null: false, foreign_key: true
       t.integer :source_id
       t.string :source_type
+      t.boolean :is_seen, default: :false
 
       t.timestamps
     end
