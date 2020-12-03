@@ -6,8 +6,13 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(comment_params)
     @micropost = Micropost.find(@comment.micropost_id)
     @parent_comment = Comment.find(@comment.parent_comment_id) if @comment.parent_comment_id
-    @error = @comment.errors.messages unless @comment.save
     @used_ajax = true
+
+    if @comment.save
+      @comment.notifications.create(user_id: @micropost.user_id)
+    else
+      @error = @comment.errors.messages
+    end
 
     respond_to do |format|
       format.html { to_last_url }

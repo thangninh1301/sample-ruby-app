@@ -14,6 +14,7 @@ RSpec.describe CommentsController, type: :controller do
         post :create, xhr: true, params: { content: 'this is test string', micropost_id: micropost }
       end
         .to change(Comment, :count).by(1)
+                                   .and change(Notification, :count).by(1)
       expect(Comment.last.content).to eq('this is test string')
       expect(response).to render_template('comments/create')
     end

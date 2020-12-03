@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_085203) do
+ActiveRecord::Schema.define(version: 2020_12_02_091938) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -51,6 +51,18 @@ ActiveRecord::Schema.define(version: 2020_11_12_085203) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_microposts_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "source_id"
+    t.string "source_type"
+    t.boolean "is_seen", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["source_id"], name: "index_notifications_on_source_id"
+    t.index ["source_type"], name: "index_notifications_on_source_type"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "reactions", force: :cascade do |t|
@@ -107,5 +119,6 @@ ActiveRecord::Schema.define(version: 2020_11_12_085203) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users"
   add_foreign_key "microposts", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "user_infos", "users"
 end

@@ -1,0 +1,7 @@
+<% if notification.is_seen == false %>
+  <%= link_to image_tag("https://upload.wikimedia.org/wikipedia/commons/c/c0/Location_dot_black.svg", size: "20x20"),
+              notification,
+              remote: true,
+              method: :put,
+              id: "seen-button-notification-#{notification.id}" %>
+<% end %>

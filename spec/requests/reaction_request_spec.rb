@@ -15,6 +15,7 @@ describe ReactionController, type: :controller do
         post :create, xhr: true, params: { react_to_id: micropost.id, react_to_type: micropost.class.name, icon_id: 4 }
       end
         .to change { Reaction.last.icon_id }.from(1).to(4)
+                                            .and change(Notification, :count).by(1)
       expect(response).to render_template('reaction/create')
     end
 
@@ -23,6 +24,7 @@ describe ReactionController, type: :controller do
         post :create, xhr: true, params: { react_to_id: comment.id, react_to_type: comment.class.name, icon_id: 4 }
       end
         .to change(Reaction, :count).by(1)
+                                    .and change(Notification, :count).by(1)
       expect(response).to render_template('reaction/create')
     end
 
