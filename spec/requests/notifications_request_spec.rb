@@ -19,7 +19,7 @@ describe NotificationsController, type: :controller do
 
     it 'should change notification.is_seen' do
       expect do
-        get :show, xhr: true, params: { id: Notification.first }
+        get :show, params: { id: Notification.first }
       end
         .to change { Notification.first.is_seen }.from(false).to(true)
       expect(response).to redirect_to(user_mike)
@@ -29,7 +29,7 @@ describe NotificationsController, type: :controller do
   context 'when not logged in' do
     it 'should not change notification' do
       expect do
-        get :show, xhr: true, params: { id: Notification.first }
+        get :show, params: { id: Notification.first }
       end
         .to_not change { Notification.first.is_seen }.from(false)
       expect(response).to redirect_to(login_url)
