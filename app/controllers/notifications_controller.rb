@@ -14,7 +14,9 @@ class NotificationsController < ApplicationController
   def show
     @notification.is_seen = true
     @notification.save
-    redirect_to root_path
+    return redirect_to @notification.source.react_to.micropost.user if @notification.source_type == 'Reaction'
+
+    redirect_to @notification.source.micropost.user
   end
 
   private
@@ -23,4 +25,6 @@ class NotificationsController < ApplicationController
     @notification = current_user.notifications.find_by(id: params[:id])
     redirect_to root_url if @notification.nil?
   end
+
+  def micropost_url; end
 end

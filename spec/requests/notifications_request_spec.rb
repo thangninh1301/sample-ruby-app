@@ -22,7 +22,7 @@ describe NotificationsController, type: :controller do
         get :show, xhr: true, params: { id: Notification.first }
       end
         .to change { Notification.first.is_seen }.from(false).to(true)
-      expect(response).to redirect_to(root_url)
+      expect(response).to redirect_to(user_mike)
     end
   end
 
