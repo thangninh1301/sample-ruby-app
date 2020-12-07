@@ -8,7 +8,7 @@ describe ReactionController, type: :controller do
 
   context 'when user is logged in' do
     before(:each) do
-      session[:user_id] = user_mike.id
+      sign_in user_mike
     end
     it 'should update reaction if existed' do
       expect do

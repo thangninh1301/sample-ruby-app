@@ -1,9 +1,11 @@
 class User < ApplicationRecord
+  attr_accessor :skip_password_validation
+
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  devise :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+  # ,  and :omniauthable
+  devise :database_authenticatable, :registerable, :lockable, :timeoutable, :trackable,
+         :recoverable, :rememberable, :validatable, :confirmable,
+         :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   has_many :user_info, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -19,43 +21,25 @@ class User < ApplicationRecord
                                    dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  attr_accessor :remember_token, :activation_token, :reset_token
-
-  before_save { self.email = email.downcase }
-  before_create :create_activation_digest
-  validates :name, presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-  validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
-  has_secure_password validations: false
 
   CSV_ATTRIBUTES = %w[created_at name].freeze
-
-  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   # Returns the hash digest of the given string.
-  def self.digest(string)
-    cost = if ActiveModel::SecurePassword.min_cost
-             BCrypt::Engine::MIN_COST
-           else
-             BCrypt::Engine.cost
-           end
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  def self.new_token
-    SecureRandom.urlsafe_base64
-  end
 
   # login with fb gg
   def self.from_omniauth(access_token, provider)
     data = access_token.info
-    user = User.where(email: data['email']).first
-    user ||= User.create(name: data['name'],
-                         email: data['email'],
-                         provider: provider,
-                         activated: true,
-                         activated_at: Time.zone.now)
+
+    user = where(email: data['email']).first_or_create do |obj|
+      obj.name = data['name']
+      obj.email = data['email']
+      obj.provider = provider
+      #  If you are using confirmable and the provider(s) you use validate emails
+      obj.skip_confirmation!
+    end
+
+    user.skip_password_validation = true
+    user.save
+
     if user.persisted?
       user.user_info.where(provider: provider).first_or_create(name: data['name'],
                                                                email: data['email'],
@@ -140,10 +124,11 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
-  private
+  protected
 
-  def create_activation_digest
-    self.activation_token = User.new_token
-    self.activation_digest = User.digest(activation_token)
+  def password_required?
+    return false if skip_password_validation
+
+    super
   end
 end

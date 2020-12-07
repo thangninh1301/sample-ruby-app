@@ -1,11 +1,11 @@
 class ReactionController < ApplicationController
-  before_action :logged_in_user
+  before_action :authenticate_user!
 
   def create
     @reaction = Reaction.find_by(react_to_type: reaction_param[:react_to_type],
                                  react_to_id: reaction_param[:react_to_id],
-                                 reactor_id: @current_user.id).try(:destroy)
-    @reaction = @current_user.reactions.build(reaction_param)
+                                 reactor_id: current_user.id).try(:destroy)
+    @reaction = current_user.reactions.build(reaction_param)
 
     if @reaction.save
       @reaction.notifications.create(user_id: react_to_object.user_id)

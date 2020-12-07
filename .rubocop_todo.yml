@@ -112,7 +112,6 @@ Style/RedundantFetchBlock:
 Style/SafeNavigation:
   Exclude:
     - 'app/controllers/password_resets_controller.rb'
-    - 'app/controllers/sessions_controller.rb'
     - 'app/helpers/sessions_helper.rb'
 
 # Offense count: 2

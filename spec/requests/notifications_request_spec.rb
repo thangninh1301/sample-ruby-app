@@ -7,7 +7,7 @@ describe NotificationsController, type: :controller do
   let!(:notification) { comment.notifications.create(user_id: micropost.user_id) }
   context 'when user is logged in' do
     before(:each) do
-      session[:user_id] = user_mike.id
+      sign_in user_mike
     end
     it 'should change notification.is_seen' do
       expect do

@@ -7,7 +7,7 @@ RSpec.describe ApplicationCable::Connection, type: :channel do
 
     describe '#connect' do
       it 'accepts connection' do
-        cookies.encrypted[:user_id] = user.id
+        cookies.encrypted['user_id'] = user.id
         expect { connect }.to_not raise_error
       end
     end

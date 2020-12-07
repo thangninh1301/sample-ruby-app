@@ -7,7 +7,7 @@ RSpec.describe CommentsController, type: :controller do
 
   context 'when user is logged in' do
     before(:each) do
-      session[:user_id] = user_mike.id
+      sign_in user_mike
     end
     it 'should success create new cmt' do
       expect do

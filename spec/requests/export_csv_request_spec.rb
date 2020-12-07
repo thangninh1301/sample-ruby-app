@@ -22,7 +22,7 @@ describe ExportCsvController, type: :controller do
   context 'when user is logged in' do
     let(:hash) { assigns(:hash) }
     before(:each) do
-      session[:user_id] = user_mike.id
+      sign_in user_mike
       user_mike.follow(another_user)
       another_user.follow(user_mike)
     end

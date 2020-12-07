@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_action :logged_in_user, only: %i[update show]
+  before_action :authenticate_user!, only: %i[update show]
   before_action :correct_user, only: %i[update show]
 
   def update
