@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe NotificationsController, type: :controller do
   let(:user_mike) { create(:user_mike) }
+  let(:another_user) { create(:another_user) }
   let(:micropost) { user_mike.microposts.create(content: 'Lorem ipsum') }
   let(:comment) { micropost.comments.create(user_id: user_mike.id, content: 'test content') }
   let!(:notification) { comment.notifications.create(user_id: micropost.user_id) }
@@ -41,6 +42,31 @@ describe NotificationsController, type: :controller do
       end
         .to_not change { Notification.first.is_seen }.from(false)
       expect(response).to redirect_to(login_url)
+    end
+  end
+
+  context 'when logged in with another user' do
+    before(:each) do
+      sign_out user_mike
+      sign_in another_user
+    end
+
+    it 'should not change notification' do
+      expect do
+        get :show, params: { id: Notification.first }
+      end
+        .to_not change { Notification.first.is_seen }.from(false)
+      expect(response).to redirect_to root_url
+      expect(flash[:alert]).to be_present
+    end
+
+    it 'should not change notification' do
+      expect do
+        patch :update, xhr: true, params: { id: Notification.first }
+      end
+        .to_not change { Notification.first.is_seen }.from(false)
+      expect(response).to redirect_to root_url
+      expect(flash[:alert]).to be_present
     end
   end
 end

@@ -8,13 +8,13 @@ FactoryBot.define do
     name { 'mike' }
     email { Faker::Internet.email }
     password { 'password' }
-    before(:create, &:skip_confirmation_notification!)
+    before(:create, &:confirm)
   end
 
   factory :another_user, class: User do
     name { Faker::Name.unique.name }
     email { Faker::Internet.email }
     password { 'password' }
-    before(:create, &:skip_confirmation_notification!)
+    before(:create, &:confirm)
   end
 end

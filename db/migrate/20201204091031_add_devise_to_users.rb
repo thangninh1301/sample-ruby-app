@@ -4,6 +4,18 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.0]
   def self.up
     drop_table :users
     create_table :users
+    create_table(:roles) do |t|
+      t.string :name
+      t.references :resource, :polymorphic => true
+
+      t.timestamps
+    end
+
+    create_table(:users_roles, :id => false) do |t|
+      t.references :user
+      t.references :role
+    end
+
     change_table :users do |t|
       ## Database authenticatable
       t.string :encrypted_password, null: false, default: ""
@@ -40,6 +52,9 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.0]
       t.timestamps null: false
     end
 
+    add_index(:roles, :name)
+    add_index(:roles, [ :name, :resource_type, :resource_id ])
+    add_index(:users_roles, [ :user_id, :role_id ])
     add_index :users, :reset_password_token, unique: true
     add_index :users, :email, unique: true
     add_index :users, :confirmation_token,   unique: true

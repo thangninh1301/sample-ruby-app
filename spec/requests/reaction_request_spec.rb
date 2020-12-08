@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe ReactionController, type: :controller do
   let(:user_mike) { create(:user_mike) }
+  let(:another_user) { create(:another_user) }
   let(:micropost) { user_mike.microposts.create(content: 'Lorem ipsum') }
   let(:comment) { user_mike.comments.create(content: 'Lorem ipsum', micropost_id: micropost.id) }
   let!(:reaction) { micropost.reactions.create(reactor_id: user_mike.id, icon_id: 1) }
@@ -52,6 +53,22 @@ describe ReactionController, type: :controller do
       end
         .to change(Reaction, :count).by eq(0)
       expect(response).to redirect_to login_url
+    end
+  end
+
+  context 'when logged in with another user' do
+    before(:each) do
+      sign_out user_mike
+      sign_in another_user
+    end
+
+    it 'should not delete reaction' do
+      expect do
+        post :destroy, xhr: true, params: { id: reaction.id, micropost_id: micropost }
+      end
+        .to change(Reaction, :count).by eq(0)
+      expect(response).to redirect_to root_url
+      expect(flash[:alert]).to be_present
     end
   end
 end

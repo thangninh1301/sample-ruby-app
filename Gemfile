@@ -108,3 +108,6 @@ gem 'figaro'
 gem 'rubyzip', require: 'zip'
 
 gem 'redis'
+
+gem 'cancancan', '~> 2.0'
+gem 'rolify'

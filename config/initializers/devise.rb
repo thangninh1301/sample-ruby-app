@@ -143,7 +143,7 @@ Devise.setup do |config|
   # without confirming their account.
   # Default is 0.days, meaning the user cannot access the website without
   # confirming their account.
-  config.allow_unconfirmed_access_for = 1.days
+  # config.allow_unconfirmed_access_for = 1.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -317,5 +317,5 @@ Warden::Manager.after_set_user do |user,auth,opts|
 end
 
 Warden::Manager.before_logout do |user,auth,opts|
-  auth.cookies.encrypted.delete :user_id
+  auth.cookies.encrypted[:user_id] = nil
 end

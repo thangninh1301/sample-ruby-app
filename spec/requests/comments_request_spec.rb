@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
   let(:user_mike) { create(:user_mike) }
+  let(:another_user) { create(:another_user) }
   let(:micropost) { user_mike.microposts.create(content: 'Lorem ipsum') }
   let!(:save_cmt) { user_mike.comments.create(content: 'Lorem ipsum', micropost_id: micropost.id) }
 
@@ -51,6 +52,22 @@ RSpec.describe CommentsController, type: :controller do
       end
         .to change(Comment, :count).by(0)
       expect(response).to redirect_to login_url
+    end
+  end
+
+  context 'when logged in with another user' do
+    before(:each) do
+      sign_out user_mike
+      sign_in another_user
+    end
+
+    it 'should not delete cmt' do
+      expect do
+        post :destroy, xhr: true, params: { id: save_cmt.id }
+      end
+        .to change(Comment, :count).by(0)
+      expect(response).to redirect_to root_url
+      expect(flash[:alert]).to be_present
     end
   end
 end

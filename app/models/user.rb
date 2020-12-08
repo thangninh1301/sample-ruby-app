@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  rolify
+  resourcify
   attr_accessor :skip_password_validation
 
   # Include default devise modules. Others available are:

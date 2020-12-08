@@ -1,5 +1,6 @@
 class ReactionController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   def create
     @reaction = Reaction.find_by(react_to_type: reaction_param[:react_to_type],
