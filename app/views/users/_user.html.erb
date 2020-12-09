@@ -1,4 +1,14 @@
 <li>
   <%= gravatar_for user, size: 50 %>
   <%= link_to user.name, user %>
+  <% if (can? :destroy, user) && !current_user?(user) %>
+    | <%= link_to "delete", user, method: :delete,
+                  data: {confirm: "You sure?"} %>
+  <% end %>
+  <% if can? :edit, user %>
+    | <%= link_to "edit", edit_user_path(user)%>
+  <% end %>
+  <% if user.online? %>
+     <%= image_tag("https://upload.wikimedia.org/wikipedia/commons/c/c0/Location_dot_black.svg", size: "10x10") %>
+  <% end %>
 </li>

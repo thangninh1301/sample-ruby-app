@@ -1,11 +1,10 @@
 class User < ApplicationRecord
   rolify
-  resourcify
   attr_accessor :skip_password_validation
 
-  # Include default devise modules. Others available are:
-  # ,  and :omniauthable
-  devise :database_authenticatable, :registerable, :lockable, :timeoutable, :trackable,
+  after_create :add_admin_role
+
+  devise :database_authenticatable, :registerable, :lockable, :timeoutable, :trackable, :lastseenable,
          :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   has_many :user_info, dependent: :destroy
@@ -25,7 +24,10 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
   CSV_ATTRIBUTES = %w[created_at name].freeze
-  # Returns the hash digest of the given string.
+
+  def online?
+    last_seen && last_seen > 10.minutes.ago
+  end
 
   # login with fb gg
   def self.from_omniauth(access_token, provider)
@@ -49,49 +51,6 @@ class User < ApplicationRecord
                                                                provider: provider)
     end
     user
-  end
-
-  def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
-    remember_digest
-  end
-
-  def session_token
-    remember_digest || remember
-  end
-
-  def password_reset_expired?
-    reset_sent_at < 2.hours.ago
-  end
-
-  # Activates an account.
-  def activate
-    update_attribute(:activated, true)
-    update_attribute(:activated_at, Time.zone.now)
-  end
-
-  # Sends activation email.
-  def send_activation_email
-    UserMailer.account_activation(self).deliver_now
-  end
-
-  # Sets the password reset
-  def create_reset_digest
-    self.reset_token = User.new_token
-    update_attribute(:reset_digest, User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
-  end
-
-  def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
-  end
-
-  def authenticated?(attribute, token)
-    digest = send("#{attribute}_digest")
-    return false if digest.nil?
-
-    BCrypt::Password.new(digest).is_password?(token)
   end
 
   def following_last_month
@@ -132,5 +91,11 @@ class User < ApplicationRecord
     return false if skip_password_validation
 
     super
+  end
+
+  private
+
+  def add_admin_role
+    add_role :admin if User.count == 1
   end
 end

@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    alias_action :create, :read, :update, :destroy, to: :crud
+    alias_action :update, :destroy, to: :crud
     can :read, :all # permissions for every user, even if not logged in
     cannot :read, Notification
 

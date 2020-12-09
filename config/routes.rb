@@ -10,11 +10,7 @@ Rails.application.routes.draw do
   get '/contact', to: 'static_pages#contact'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :users, only: %i[index show] do
-    member do
-      get :following, :followers
-    end
-  end
+
   resources :comments, only: %i[create destroy show]
   resources :account_activations, only: [:edit]
   resources :password_resets, only: %i[new create edit update]
@@ -24,11 +20,16 @@ Rails.application.routes.draw do
   resources :export_csv, only: %i[index]
   resources :notifications, only: %i[show update]
 
-  devise_for :users,path: '', controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users,path: 'my', controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   devise_scope :user do
     get 'login', to: 'devise/sessions#new'
     get 'sign_up', to: 'devise/registrations#new'
   end
 
+  resources :users, only: %i[index show edit destroy update] do
+    member do
+      get :following, :followers
+    end
+  end
   mount ActionCable.server => '/cable'
 end

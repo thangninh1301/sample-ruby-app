@@ -20,9 +20,9 @@ class ReactionController < ApplicationController
   end
 
   def destroy
-    @micropost = Micropost.find(reaction_param[:micropost_id])
-    @reaction = Reaction.find(reaction_param[:id])
     @reaction.destroy
+
+    @micropost = Micropost.find(reaction_param[:micropost_id])
 
     respond_to do |format|
       format.html { to_last_url }

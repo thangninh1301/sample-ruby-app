@@ -109,5 +109,6 @@ gem 'rubyzip', require: 'zip'
 
 gem 'redis'
 
-gem 'cancancan', '~> 2.0'
+gem 'cancancan', '~> 3.1.0'
+gem 'devise_lastseenable'
 gem 'rolify'

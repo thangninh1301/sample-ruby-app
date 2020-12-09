@@ -20,6 +20,7 @@ User.create!(name: 'Example User',
   User.create!(name: name,
                email: email,
                password: password)
+  User.last.confirm
 end
 # fake micropost
 users = User.order(:created_at).take(6)

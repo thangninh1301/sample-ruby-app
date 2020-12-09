@@ -1,16 +1,28 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: %i[index following followers]
-  # before_action :correct_user, only: %i[edit update]
-  # before_action :admin_user, only: :destroy
+  before_action :authenticate_user!, only: %i[index following followers edit]
+  load_and_authorize_resource
 
   def show
-    @user = User.find(params[:id])
-    # redirect_to root_url and return unless @user.activated?
     @microposts = @user.microposts.paginate(page: params[:page])
   end
 
-  def edit
-    @user = User.find(params[:id])
+  def edit; end
+
+  def update
+    if @user.update(user_params)
+      flash[:success] = 'Profile updated'
+      if user_params[:email] != @user.email
+        flash[:success] = "'Profile updated', an email had send to #{user_params[:email]}"
+      end
+      redirect_to users_url
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to users_url
   end
 
   def index
@@ -19,7 +31,6 @@ class UsersController < ApplicationController
 
   def following
     @title = 'Following'
-    @user = User.find(params[:id])
     @users = @user.following.paginate(page: params[:page])
     render 'show_follow'
   end
@@ -35,23 +46,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id)
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+    params.require(:user).permit(:name, :email, :password,
+                                 :password_confirmation)
   end
-
-  # def logged_in_user
-  #   unless logged_in?
-  #     store_location
-  #     flash[:danger] = "Please log in."
-  #     redirect_to login_url
-  #   end
-  # end
-
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
-  end
-
-  # def admin_user
-  #   redirect_to(root_url) unless current_user.admin?
-  # end
 end
