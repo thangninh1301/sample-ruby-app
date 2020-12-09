@@ -45,8 +45,14 @@ describe User, type: :model do
       expect(another_user_ability).to_not be_able_to(:update, admin.reactions.new)
       expect(another_user_ability).to_not be_able_to(:destroy, admin.reactions.new)
     end
+  end
 
-    #
-    # expect(ability).to_not be_able_to(:destroy, Post.new)
+  it 'should return nil when offline more than 10 mins' do
+    expect(admin.online?).to eq(nil)
+  end
+
+  it 'should return true when offline more than 10 mins' do
+    admin.update(last_seen: 1.minutes.ago)
+    expect(admin.online?).to eq(true)
   end
 end
