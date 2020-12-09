@@ -33,7 +33,7 @@ describe NotificationsController, type: :controller do
         get :show, params: { id: Notification.first }
       end
         .to_not change { Notification.first.is_seen }.from(false)
-      expect(response).to redirect_to(login_url)
+      expect(response).to redirect_to(new_user_session_path)
     end
 
     it 'should not change notification' do
@@ -41,7 +41,8 @@ describe NotificationsController, type: :controller do
         patch :update, xhr: true, params: { id: Notification.first }
       end
         .to_not change { Notification.first.is_seen }.from(false)
-      expect(response).to redirect_to(login_url)
+      expect(response.body).to include 'You need to sign in or sign up before continuing'
+      expect(response.code).to eq('401')
     end
   end
 

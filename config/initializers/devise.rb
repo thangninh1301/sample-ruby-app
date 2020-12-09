@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'lib/devise/failure_app'
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
 # are not: uncommented lines are intended to protect your configuration from
@@ -310,10 +309,6 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
   config.omniauth :google_oauth2, ENV['google_client_id'], ENV['google_client_secret']
   config.omniauth :facebook, ENV['fb_app_id'], ENV['fb_secret']
-
-  config.warden do |manager|
-    manager.failure_app = CustomFailure
-  end
 end
 
 Warden::Manager.after_set_user do |user,auth,opts|

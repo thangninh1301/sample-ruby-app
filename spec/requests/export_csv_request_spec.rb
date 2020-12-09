@@ -73,6 +73,7 @@ describe ExportCsvController, type: :controller do
 
   it 'should redirect to root if not logged in' do
     get :index, xhr: true
-    expect(response).to redirect_to login_url
+    expect(response.body).to include 'You need to sign in or sign up before continuing'
+    expect(response.code).to eq('401')
   end
 end

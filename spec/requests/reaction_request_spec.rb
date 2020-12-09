@@ -44,7 +44,8 @@ describe ReactionController, type: :controller do
         post :destroy, xhr: true, params: { id: reaction.id, micropost_id: micropost }
       end
         .to change(Reaction, :count).by eq(0)
-      expect(response).to redirect_to login_url
+      expect(response.body).to include 'You need to sign in or sign up before continuing'
+      expect(response.code).to eq('401')
     end
 
     it 'should not create reaction' do
@@ -52,7 +53,8 @@ describe ReactionController, type: :controller do
         post :create, xhr: true, params: { react_to_id: comment.id, react_to_type: comment.class.name, icon_id: 4 }
       end
         .to change(Reaction, :count).by eq(0)
-      expect(response).to redirect_to login_url
+      expect(response.body).to include 'You need to sign in or sign up before continuing'
+      expect(response.code).to eq('401')
     end
   end
 

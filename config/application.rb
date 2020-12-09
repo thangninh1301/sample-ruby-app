@@ -12,7 +12,7 @@ module SampleApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-    config.autoload_paths << Rails.root.join('lib')
+
     # Include the authenticity token in remote forms.
     config.action_view.embed_authenticity_token_in_remote_forms = true
     config.action_cable.disable_request_forgery_protection = true

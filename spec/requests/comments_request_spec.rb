@@ -43,7 +43,8 @@ RSpec.describe CommentsController, type: :controller do
         post :create, xhr: true, params: { content: 'this is test string', micropost_id: micropost }
       end
         .to change(Comment, :count).by(0)
-      expect(response).to redirect_to login_url
+      expect(response.body).to include 'You need to sign in or sign up before continuing'
+      expect(response.code).to eq('401')
     end
 
     it 'should not delete cmt when not logged in' do
@@ -51,7 +52,8 @@ RSpec.describe CommentsController, type: :controller do
         post :destroy, xhr: true, params: { id: save_cmt.id }
       end
         .to change(Comment, :count).by(0)
-      expect(response).to redirect_to login_url
+      expect(response.body).to include 'You need to sign in or sign up before continuing'
+      expect(response.code).to eq('401')
     end
   end
 

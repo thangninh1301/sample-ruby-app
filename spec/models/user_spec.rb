@@ -4,8 +4,8 @@ require 'cancan/matchers'
 describe User, type: :model do
   let!(:admin) { create(:user_mike) }
   let!(:another_user) { create(:another_user) }
-  let(:admin_ability){Ability.new(admin)}
-  let(:another_user_ability){Ability.new(another_user)}
+  let(:admin_ability) { Ability.new(admin) }
+  let(:another_user_ability) { Ability.new(another_user) }
   context 'with role' do
     it 'first user should be admin' do
       expect(admin.has_role?(:admin)).to eq(true)
@@ -29,12 +29,12 @@ describe User, type: :model do
     end
 
     it 'another_user can edit their resource' do
-      expect(another_user_ability).to be_able_to(:update,another_user.microposts.new )
-      expect(another_user_ability).to be_able_to(:destroy, another_user.microposts.new )
-      expect(another_user_ability).to be_able_to(:update,another_user.comments.new )
-      expect(another_user_ability).to be_able_to(:destroy, another_user.comments.new )
-      expect(another_user_ability).to be_able_to(:update,another_user.reactions.new )
-      expect(another_user_ability).to be_able_to(:destroy, another_user.reactions.new )
+      expect(another_user_ability).to be_able_to(:update, another_user.microposts.new)
+      expect(another_user_ability).to be_able_to(:destroy, another_user.microposts.new)
+      expect(another_user_ability).to be_able_to(:update, another_user.comments.new)
+      expect(another_user_ability).to be_able_to(:destroy, another_user.comments.new)
+      expect(another_user_ability).to be_able_to(:update, another_user.reactions.new)
+      expect(another_user_ability).to be_able_to(:destroy, another_user.reactions.new)
     end
 
     it 'another_user cannot edit other resouce' do
