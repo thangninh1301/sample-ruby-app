@@ -46,6 +46,23 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.0]
     add_index :users, :email, unique: true
     add_index :users, :confirmation_token,   unique: true
     add_index :users, :unlock_token,         unique: true
+
+    #rolify
+    create_table(:roles) do |t|
+      t.string :name
+      t.references :resource, :polymorphic => true
+
+      t.timestamps
+    end
+
+    create_table(:users_roles, :id => false) do |t|
+      t.references :user
+      t.references :role
+    end
+
+    add_index(:roles, :name)
+    add_index(:roles, [ :name, :resource_type, :resource_id ])
+    add_index(:users_roles, [ :user_id, :role_id ])
   end
 
   def self.down

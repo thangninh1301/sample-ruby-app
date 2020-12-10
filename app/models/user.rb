@@ -37,7 +37,6 @@ class User < ApplicationRecord
       obj.name = data['name']
       obj.email = data['email']
       obj.provider = provider
-      #  If you are using confirmable and the provider(s) you use validate emails
       obj.skip_confirmation!
     end
 
