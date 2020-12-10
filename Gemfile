@@ -112,3 +112,5 @@ gem 'redis'
 gem 'cancancan', '~> 3.1.0'
 gem 'devise_lastseenable'
 gem 'rolify'
+
+gem 'devise-i18n'

@@ -1,5 +1,6 @@
 class ExportCsvController < ApplicationController
   before_action :authenticate_user!, only: %i[index]
+
   def index
     @hash = {}
     @hash['micropost'] = ExportCsvService.new Micropost.last_month.by_user(current_user),
