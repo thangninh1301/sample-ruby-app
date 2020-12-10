@@ -1,5 +1,4 @@
 class RelationshipsController < ApplicationController
-  before_action :authenticate_user!
   authorize_resource
 
   def create

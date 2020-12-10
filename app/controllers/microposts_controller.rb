@@ -1,5 +1,4 @@
 class MicropostsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create destroy all_reaction show]
   load_and_authorize_resource
 
   def create

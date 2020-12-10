@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create destroy show]
   load_and_authorize_resource
 
   def create

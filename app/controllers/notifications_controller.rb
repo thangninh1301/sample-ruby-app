@@ -1,5 +1,4 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate_user!, only: %i[update show]
   load_and_authorize_resource
 
   def update

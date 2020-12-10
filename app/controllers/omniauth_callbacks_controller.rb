@@ -1,4 +1,5 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  skip_before_action :authenticate_user!
   def facebook
     generic_callback('facebook')
   end

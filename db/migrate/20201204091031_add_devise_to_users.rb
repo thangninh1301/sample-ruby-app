@@ -3,9 +3,7 @@
 class AddDeviseToUsers < ActiveRecord::Migration[6.0]
   def self.up
     drop_table :users
-    create_table :users
-    add_column :users, :last_seen, :datetime
-    change_table :users do |t|
+    create_table :users do |t|
       ## Database authenticatable
       t.string :encrypted_password, null: false, default: ""
       t.string :name, null: false
@@ -24,7 +22,7 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.0]
       t.datetime :last_sign_in_at
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
-
+      t.datetime :last_seen
       # Confirmable
       t.string   :confirmation_token
       t.datetime :confirmed_at

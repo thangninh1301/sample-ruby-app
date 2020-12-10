@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: %i[index following followers edit]
   load_and_authorize_resource
 
   def show
