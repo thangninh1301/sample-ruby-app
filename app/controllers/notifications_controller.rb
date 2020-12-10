@@ -1,6 +1,5 @@
 class NotificationsController < ApplicationController
-  before_action :logged_in_user, only: %i[update show]
-  before_action :correct_user, only: %i[update show]
+  load_and_authorize_resource
 
   def update
     @notification.update(is_seen: true)
@@ -15,12 +14,5 @@ class NotificationsController < ApplicationController
     return redirect_to @notification.source.react_to.micropost.user if @notification.source_type == 'Reaction'
 
     redirect_to @notification.source.micropost.user
-  end
-
-  private
-
-  def correct_user
-    @notification = current_user.notifications.find_by(id: params[:id])
-    redirect_to root_url if @notification.nil?
   end
 end

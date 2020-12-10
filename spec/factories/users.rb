@@ -7,16 +7,20 @@ FactoryBot.define do
   factory :user_mike, class: User do
     name { 'mike' }
     email { Faker::Internet.email }
-    password { User.digest('password') }
-    activated { true }
-    activated_at { Time.zone.now }
+    password { 'password' }
+    before(:create, &:confirm)
   end
 
   factory :another_user, class: User do
     name { Faker::Name.unique.name }
     email { Faker::Internet.email }
-    password { User.digest('password') }
-    activated { true }
-    activated_at { Time.zone.now }
+    password { 'password' }
+    before(:create, &:confirm)
+  end
+
+  factory :new_user, class: User do
+    name { Faker::Name.unique.name }
+    email { Faker::Internet.email }
+    password { '' }
   end
 end

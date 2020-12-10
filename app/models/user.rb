@@ -1,5 +1,12 @@
 class User < ApplicationRecord
-  devise :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+  rolify
+  attr_accessor :skip_password_validation
+
+  after_create :add_admin_role
+
+  devise :database_authenticatable, :registerable, :lockable, :timeoutable, :trackable, :lastseenable,
+         :recoverable, :rememberable, :validatable, :confirmable,
+         :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   has_many :user_info, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -15,43 +22,27 @@ class User < ApplicationRecord
                                    dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  attr_accessor :remember_token, :activation_token, :reset_token
-
-  before_save { self.email = email.downcase }
-  before_create :create_activation_digest
-  validates :name, presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-  validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
-  has_secure_password validations: false
 
   CSV_ATTRIBUTES = %w[created_at name].freeze
 
-  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  # Returns the hash digest of the given string.
-  def self.digest(string)
-    cost = if ActiveModel::SecurePassword.min_cost
-             BCrypt::Engine::MIN_COST
-           else
-             BCrypt::Engine.cost
-           end
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  def self.new_token
-    SecureRandom.urlsafe_base64
+  def online?
+    last_seen && last_seen > 10.minutes.ago
   end
 
   # login with fb gg
   def self.from_omniauth(access_token, provider)
     data = access_token.info
-    user = User.where(email: data['email']).first
-    user ||= User.create(name: data['name'],
-                         email: data['email'],
-                         provider: provider,
-                         activated: true,
-                         activated_at: Time.zone.now)
+
+    user = where(email: data['email']).first_or_create do |obj|
+      obj.name = data['name']
+      obj.email = data['email']
+      obj.provider = provider
+      obj.skip_confirmation!
+    end
+
+    user.skip_password_validation = true
+    user.save
+
     if user.persisted?
       user.user_info.where(provider: provider).first_or_create(name: data['name'],
                                                                email: data['email'],
@@ -59,49 +50,6 @@ class User < ApplicationRecord
                                                                provider: provider)
     end
     user
-  end
-
-  def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
-    remember_digest
-  end
-
-  def session_token
-    remember_digest || remember
-  end
-
-  def password_reset_expired?
-    reset_sent_at < 2.hours.ago
-  end
-
-  # Activates an account.
-  def activate
-    update_attribute(:activated, true)
-    update_attribute(:activated_at, Time.zone.now)
-  end
-
-  # Sends activation email.
-  def send_activation_email
-    UserMailer.account_activation(self).deliver_now
-  end
-
-  # Sets the password reset
-  def create_reset_digest
-    self.reset_token = User.new_token
-    update_attribute(:reset_digest, User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
-  end
-
-  def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
-  end
-
-  def authenticated?(attribute, token)
-    digest = send("#{attribute}_digest")
-    return false if digest.nil?
-
-    BCrypt::Password.new(digest).is_password?(token)
   end
 
   def following_last_month
@@ -136,10 +84,18 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  protected
+
+  def password_required?
+    return false if skip_password_validation
+
+    super
+  end
+
   private
 
-  def create_activation_digest
-    self.activation_token = User.new_token
-    self.activation_digest = User.digest(activation_token)
+  def add_admin_role
+    add_role :admin if User.count == 1
+    add_role :user
   end
 end

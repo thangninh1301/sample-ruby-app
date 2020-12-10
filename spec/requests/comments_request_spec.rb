@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
   let(:user_mike) { create(:user_mike) }
+  let(:another_user) { create(:another_user) }
   let(:micropost) { user_mike.microposts.create(content: 'Lorem ipsum') }
   let!(:save_cmt) { user_mike.comments.create(content: 'Lorem ipsum', micropost_id: micropost.id) }
 
   context 'when user is logged in' do
     before(:each) do
-      session[:user_id] = user_mike.id
+      sign_in user_mike
     end
     it 'should success create new cmt' do
       expect do
@@ -42,7 +43,8 @@ RSpec.describe CommentsController, type: :controller do
         post :create, xhr: true, params: { content: 'this is test string', micropost_id: micropost }
       end
         .to change(Comment, :count).by(0)
-      expect(response).to redirect_to login_url
+      expect(response.body).to include 'You need to sign in or sign up before continuing'
+      expect(response.code).to eq('401')
     end
 
     it 'should not delete cmt when not logged in' do
@@ -50,7 +52,23 @@ RSpec.describe CommentsController, type: :controller do
         post :destroy, xhr: true, params: { id: save_cmt.id }
       end
         .to change(Comment, :count).by(0)
-      expect(response).to redirect_to login_url
+      expect(response.body).to include 'You need to sign in or sign up before continuing'
+      expect(response.code).to eq('401')
+    end
+  end
+
+  context 'when logged in with another user' do
+    before(:each) do
+      sign_in another_user
+    end
+
+    it 'should not delete cmt' do
+      expect do
+        post :destroy, xhr: true, params: { id: save_cmt.id }
+      end
+        .to change(Comment, :count).by(0)
+      expect(response).to redirect_to root_url
+      expect(flash[:alert]).to be_present
     end
   end
 end

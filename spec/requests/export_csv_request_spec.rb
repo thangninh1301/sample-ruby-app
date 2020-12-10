@@ -22,7 +22,7 @@ describe ExportCsvController, type: :controller do
   context 'when user is logged in' do
     let(:hash) { assigns(:hash) }
     before(:each) do
-      session[:user_id] = user_mike.id
+      sign_in user_mike
       user_mike.follow(another_user)
       another_user.follow(user_mike)
     end
@@ -73,6 +73,7 @@ describe ExportCsvController, type: :controller do
 
   it 'should redirect to root if not logged in' do
     get :index, xhr: true
-    expect(response).to redirect_to login_url
+    expect(response.body).to include 'You need to sign in or sign up before continuing'
+    expect(response.code).to eq('401')
   end
 end

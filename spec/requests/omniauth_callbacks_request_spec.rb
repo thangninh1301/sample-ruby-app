@@ -2,23 +2,30 @@ require 'rails_helper'
 require 'omniauth'
 describe OmniauthCallbacksController, type: :controller do
   it 'should set user_id while login with fb' do
-    login_with(:facebook)
-    expect(session[:user_id]).to eq(User.last.id)
+    expect do
+      login_with(:facebook)
+    end
+      .to change { User.count }.by(1)
+    expect(controller.current_user).to eq(User.last)
   end
 
   it 'should set user_id while login with google' do
-    login_with(:google_oauth2)
-    expect(session[:user_id]).to eq(User.last.id)
+    expect do
+      login_with(:google_oauth2)
+    end
+      .to change { User.count }.by(1)
+    expect(controller.current_user).to eq(User.last)
   end
 
   it 'should get same user_id while login with gg fb' do
     login_with(:google_oauth2)
-    save_id = session[:user_id]
-    cookies.delete(:user_id)
-    cookies.delete(:remember_token)
-    session[:user_id] = nil
+    first_current_user = controller.current_user
+
+    sign_out first_current_user
+    expect(controller.current_user).to eq(nil)
+
     login_with(:google_oauth2)
-    expect(session[:user_id]).to eq(save_id)
+    expect(controller.current_user).to eq(first_current_user)
   end
 
   it 'should not get user_id while login with invalid info(email invalid)' do
@@ -32,7 +39,7 @@ describe OmniauthCallbacksController, type: :controller do
     request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:google_oauth2]
     get :google_oauth2
 
-    expect(session[:user_id]).to eq(nil)
+    expect(controller.current_user).to eq(nil)
   end
 end
 

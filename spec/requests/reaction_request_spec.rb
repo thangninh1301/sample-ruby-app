@@ -2,13 +2,14 @@ require 'rails_helper'
 
 describe ReactionController, type: :controller do
   let(:user_mike) { create(:user_mike) }
+  let(:another_user) { create(:another_user) }
   let(:micropost) { user_mike.microposts.create(content: 'Lorem ipsum') }
   let(:comment) { user_mike.comments.create(content: 'Lorem ipsum', micropost_id: micropost.id) }
   let!(:reaction) { micropost.reactions.create(reactor_id: user_mike.id, icon_id: 1) }
 
   context 'when user is logged in' do
     before(:each) do
-      session[:user_id] = user_mike.id
+      sign_in user_mike
     end
     it 'should update reaction if existed' do
       expect do
@@ -43,7 +44,8 @@ describe ReactionController, type: :controller do
         post :destroy, xhr: true, params: { id: reaction.id, micropost_id: micropost }
       end
         .to change(Reaction, :count).by eq(0)
-      expect(response).to redirect_to login_url
+      expect(response.body).to include 'You need to sign in or sign up before continuing'
+      expect(response.code).to eq('401')
     end
 
     it 'should not create reaction' do
@@ -51,7 +53,23 @@ describe ReactionController, type: :controller do
         post :create, xhr: true, params: { react_to_id: comment.id, react_to_type: comment.class.name, icon_id: 4 }
       end
         .to change(Reaction, :count).by eq(0)
-      expect(response).to redirect_to login_url
+      expect(response.body).to include 'You need to sign in or sign up before continuing'
+      expect(response.code).to eq('401')
+    end
+  end
+
+  context 'when logged in with another user' do
+    before(:each) do
+      sign_in another_user
+    end
+
+    it 'should not delete reaction' do
+      expect do
+        post :destroy, xhr: true, params: { id: reaction.id, micropost_id: micropost }
+      end
+        .to change(Reaction, :count).by eq(0)
+      expect(response).to redirect_to root_url
+      expect(flash[:alert]).to be_present
     end
   end
 end
