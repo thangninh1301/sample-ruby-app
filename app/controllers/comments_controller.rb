@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create destroy show]
-  load_and_authorize_resource except: [:show]
+  load_and_authorize_resource
 
   def create
     @comment = current_user.comments.build(comment_params)
@@ -23,14 +23,6 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
 
-    respond_to do |format|
-      format.html { to_last_url }
-      format.js {}
-    end
-  end
-
-  def show
-    @micropost = Micropost.find(params[:id])
     respond_to do |format|
       format.html { to_last_url }
       format.js {}

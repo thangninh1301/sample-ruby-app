@@ -1,5 +1,5 @@
 class MicropostsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create destroy all_reaction]
+  before_action :authenticate_user!, only: %i[create destroy all_reaction show]
   load_and_authorize_resource
 
   def create
@@ -21,6 +21,13 @@ class MicropostsController < ApplicationController
       redirect_to root_url
     else
       redirect_to request.referrer
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.html { to_last_url }
+      format.js {}
     end
   end
 
