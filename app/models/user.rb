@@ -96,5 +96,6 @@ class User < ApplicationRecord
 
   def add_admin_role
     add_role :admin if User.count == 1
+    add_role :user
   end
 end
