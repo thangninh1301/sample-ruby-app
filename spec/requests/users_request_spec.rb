@@ -26,6 +26,7 @@ describe UsersController, type: :controller do
       end
         .to change { ActionMailer::Base.deliveries.size }.by(1)
       expect(User.last.name).to eq(params[:name])
+      expect(flash[:success]).to include('Profile updated')
     end
   end
 
@@ -40,6 +41,7 @@ describe UsersController, type: :controller do
       end
         .to change { ActionMailer::Base.deliveries.size }.by(0)
       expect(User.last.name).to eq('test')
+      expect(flash[:alert]).to eq('You are not authorized to access this page.')
     end
   end
 end

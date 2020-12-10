@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       flash[:success] = 'Profile updated'
       if user_params[:email] != @user.email
-        flash[:success] = "'Profile updated', an email had send to #{user_params[:email]}"
+        flash[:success] = "Profile updated, an email had send to #{user_params[:email]}"
       end
       redirect_to users_url
     else
