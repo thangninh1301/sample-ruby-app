@@ -59,7 +59,6 @@ RSpec.describe CommentsController, type: :controller do
 
   context 'when logged in with another user' do
     before(:each) do
-      sign_out user_mike
       sign_in another_user
     end
 
