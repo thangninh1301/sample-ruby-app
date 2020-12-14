@@ -6,9 +6,10 @@
                   data: {confirm: "You sure?"} %>
   <% end %>
   <% if can? :edit, user %>
-    | <%= link_to "edit", edit_user_path(user)%>
+    | <%= link_to "edit", edit_user_path(user) %>
   <% end %>
   <% if user.online? %>
-     <%= image_tag("https://upload.wikimedia.org/wikipedia/commons/c/c0/Location_dot_black.svg", size: "10x10") %>
+    <%= image_tag("https://upload.wikimedia.org/wikipedia/commons/c/c0/Location_dot_black.svg", size: "10x10") %>
   <% end %>
+  <%= link_to "start chat", conversations_path(received_id: user.id), method: :post, remote: true %>
 </li>

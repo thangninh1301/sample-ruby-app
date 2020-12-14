@@ -1,0 +1,25 @@
+<div id="chat-box-<%= conversation.id %>" class="chatbox">
+  <div class="chatbox-top">
+    <div class="chatbox-avatar">
+      <%= gravatar_for received, size: 50 %>
+    </div>
+    <div class="chat-partner-name">
+      <span class="status online"></span>
+      <%= link_to received.name, received %>
+    </div>
+    <div class="chatbox-icons">
+      <a href="javascript:void(0);"><i class="fa fa-minus"></i></a>
+      <a href="javascript:void(0);"><i class="fa fa-close"></i></a>
+    </div>
+  </div>
+
+  <div id="list-massages-<%= conversation.id %>" class="chat-messages">
+    <% if conversation.messages.any? %>
+      <%= render conversation.messages, current_user: current_user %>
+    <% end %>
+  </div>
+
+  <div class="chat-input-holder">
+    <%= render('conversations/chat_form', conversation: conversation, received: received) %>
+  </div>
+</div>

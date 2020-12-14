@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   has_many :user_info, dependent: :destroy
+  has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :reactions, class_name: 'Reaction',

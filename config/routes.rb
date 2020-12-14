@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/help', to: 'static_pages#help'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
-
+  post "calltest", to: "conversations#create"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   resources :comments, only: %i[create destroy show]
@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :reaction, only: %i[create destroy]
   resources :export_csv, only: %i[index]
   resources :notifications, only: %i[show update]
+  resources :conversations, only: %i[create]
+  resources :messages, only: %i[create]
 
   devise_for :users,path: 'my', controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   devise_scope :user do
