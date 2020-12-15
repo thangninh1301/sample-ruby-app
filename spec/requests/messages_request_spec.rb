@@ -10,13 +10,20 @@ describe MessagesController, type: :controller do
     before(:each) do
       sign_in user_mike
     end
-    it 'should success create new comment' do
-      ActiveJob::Base.queue_adapter = :test
+    it 'should success create new message' do
       expect do
         post :create, xhr: true, params: { content: 'test content', received_id: another_user.id, conversation_id: conversation.id }
       end
         .to change(Message, :count).by(1)
       expect(Message.last.content).to eq('test content')
+    end
+
+    it 'should not create new message with invalid content' do
+      expect do
+        post :create, xhr: true, params: { content: '', received_id: another_user.id, conversation_id: conversation.id }
+      end
+        .to change(Message, :count).by(0)
+      expect(assigns(:error)).to include(content: ["can't be blank"])
     end
   end
   context 'when user is not logged in' do

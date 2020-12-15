@@ -1,4 +1,5 @@
 <%= form_with(url: messages_path, remote: true) do |f| %>
+  <ul id="text-field-errors-chat-<%= conversation.id.to_s %>"></ul>
   <%= f.text_field :content, id: 'text-field-chat-' + conversation.id.to_s %>
   <%= f.hidden_field :conversation_id, class: "chat-input", value: conversation.id %>
   <%= f.hidden_field :received_id, class: "chat-input", value: received.id %>

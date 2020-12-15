@@ -1,1 +1,9 @@
-$("#list-massages-" + <%= @conversation.id %>).append("<%= escape_javascript(render('messages/message', message: @message, current_user: current_user)) %>")
+$("#text-field-errors-chat-<%= @conversation.id %>").empty()
+<% if @error
+     @error.each do |key, val| %>
+    $("#text-field-errors-chat-<%= @conversation.id %>").append("<li><%= key.to_s + val.first.to_s %></li>")
+  <% end %>
+<% else %>>
+  $("#list-massages-" + <%= @conversation.id %>).append("<%= escape_javascript(render('messages/message', message: @message, current_user: current_user)) %>")
+  $("#text-field-chat-<%= @conversation.id %>").val("")
+<% end %>

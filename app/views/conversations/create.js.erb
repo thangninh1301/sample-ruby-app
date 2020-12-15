@@ -1,1 +1,7 @@
-$("#chat-list").append("<%= escape_javascript(render('conversations/chat_box', conversation: @conversation, received: @received)) %>");
+let selector = $("chat-box-<%= @conversation.id %>")
+$.fn.not_exists = function () {
+    return this.length == 0;
+}
+if (selector.not_exists()) {
+    $("#chat-list").append("<%= escape_javascript(render('conversations/chat_box', conversation: @conversation, received: @received)) %>");
+}
