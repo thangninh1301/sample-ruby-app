@@ -15,5 +15,12 @@ class Ability
     can :manage, Notification, user_id: user.id
     can :manage, Reaction, reactor_id: user.id
     can :manage, Relationship, follower_id: user.id
+    can :manage, Message, user_id: user.id
+    can :read, Message do |m|
+      m.conversation.members.include? user.id
+    end
+    can :manage, Conversation do |c|
+      c.members.include? user.id
+    end
   end
 end

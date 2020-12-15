@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ApplicationCable::Connection, type: :channel do
   include ActionCable::TestHelper
+  let!(:user) { create(:user_mike) }
+  let(:micropost) { user.microposts.create(content: 'Lorem ipsum') }
   context 'when user is authenticated' do
     let!(:user) { create(:user_mike) }
 

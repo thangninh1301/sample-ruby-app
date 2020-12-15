@@ -1,4 +1,6 @@
 class ConversationsController < ApplicationController
+  authorize_resource
+
   def create
     array = [current_user.id, strong_params[:received_id].to_i]
     @conversation = Conversation.find_by(members: array) || Conversation.find_by(members: array.reverse)

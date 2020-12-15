@@ -13,7 +13,7 @@ consumer.subscriptions.create("ConversationsChannel", {
         $.fn.not_exists = function () {
             return this.length == 0;
         }
-        if (selector.not_exists) {
+        if (selector.not_exists()) {
             $("#chat-list").append(data.box_chat);
         } else {
             selector.append(data.messages)

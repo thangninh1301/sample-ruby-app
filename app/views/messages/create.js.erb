@@ -1,0 +1,1 @@
+$("#list-massages-" + <%= @conversation.id %>).append("<%= escape_javascript(render('messages/message', message: @message, current_user: current_user)) %>")

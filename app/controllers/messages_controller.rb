@@ -1,9 +1,11 @@
 class MessagesController < ApplicationController
+  authorize_resource
+
   def create
     @message = current_user.messages.build(strong_params)
-    if @message.save
-      MessagesBroadcastJob.perform_later(@message, params[:received_id], strong_params[:conversation_id], current_user)
-    end
+    @message.save
+    MessagesBroadcastJob.perform_now(@message, params[:received_id], strong_params[:conversation_id], current_user)
+    @conversation = Conversation.find(strong_params[:conversation_id])
     respond_to do |format|
       format.html { to_last_url }
       format.js {}
