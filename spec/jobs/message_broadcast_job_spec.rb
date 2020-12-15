@@ -13,7 +13,9 @@ RSpec.describe MessagesBroadcastJob, type: :job do
     end
 
     it 'should return render of box messages ' do
-      expect(MessagesBroadcastJob.new.send(:render_box, conversation.id, another_user.id, user_mike)).to include('test string')
+      expect(MessagesBroadcastJob.new.send(:render_box, conversation.id,
+                                           another_user.id,
+                                           user_mike)).to include('test string')
     end
   end
 end

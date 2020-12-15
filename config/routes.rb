@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get '/help', to: 'static_pages#help'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
-  post "calltest", to: "conversations#create"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   resources :comments, only: %i[create destroy show]

@@ -12,7 +12,8 @@ describe MessagesController, type: :controller do
     end
     it 'should success create new message' do
       expect do
-        post :create, xhr: true, params: { content: 'test content', received_id: another_user.id, conversation_id: conversation.id }
+        post :create, xhr: true, params: { content: 'test content', received_id: another_user.id,
+                                           conversation_id: conversation.id }
       end
         .to change(Message, :count).by(1)
       expect(Message.last.content).to eq('test content')
@@ -29,7 +30,8 @@ describe MessagesController, type: :controller do
   context 'when user is not logged in' do
     it 'should not success create new Conversation' do
       expect do
-        post :create, xhr: true, params: { content: 'test content', received_id: another_user.id, conversation_id: conversation.id }
+        post :create, xhr: true, params: { content: 'test content', received_id: another_user.id,
+                                           conversation_id: conversation.id }
       end
         .to change(Conversation, :count).by(0)
       expect(response.body).to include 'You need to sign in or sign up before continuing'
