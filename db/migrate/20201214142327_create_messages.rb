@@ -11,7 +11,5 @@ class CreateMessages < ActiveRecord::Migration[6.0]
       t.timestamps
       t.string :members
     end
-
-
   end
 end
