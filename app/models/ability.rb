@@ -17,7 +17,6 @@ class Ability
     can :manage, Relationship, follower_id: user.id
     can :manage, Message, user_id: user.id
     can :read, Message do |m|
-      m.conversation.sender_id = user.id
       m.conversation.receiver_id = user.id
     end
     can :manage, Conversation, sender_id: user.id
