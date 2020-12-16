@@ -14,7 +14,11 @@ consumer.subscriptions.create("ConversationsChannel", {
             return this.length == 0;
         }
         if (selector.not_exists()) {
-            $("#chat-list").append(data.box_chat);
+            $.ajax({
+                type: "POST",
+                data: {received_id: data.sender_id},
+                url: "/conversations.js"
+            });
         } else {
             selector.append(data.messages)
         }
