@@ -5,14 +5,17 @@ describe MessagesController, type: :controller do
 
   let(:user_mike) { create(:user_mike) }
   let(:another_user) { create(:another_user) }
-  let!(:conversation) { Conversation.create(members: [user_mike.id, another_user.id]) }
+  let!(:conversation) do
+    Conversation.create(sender_id: user_mike.id,
+                        receiver_id: another_user.id)
+  end
   context 'when user is logged in' do
     before(:each) do
       sign_in user_mike
     end
     it 'should success create new message' do
       expect do
-        post :create, xhr: true, params: { content: 'test content', received_id: another_user.id,
+        post :create, xhr: true, params: { content: 'test content', receiver_id: another_user.id,
                                            conversation_id: conversation.id }
       end
         .to change(Message, :count).by(1)
@@ -21,7 +24,7 @@ describe MessagesController, type: :controller do
 
     it 'should not create new message with invalid content' do
       expect do
-        post :create, xhr: true, params: { content: '', received_id: another_user.id, conversation_id: conversation.id }
+        post :create, xhr: true, params: { content: '', receiver_id: another_user.id, conversation_id: conversation.id }
       end
         .to change(Message, :count).by(0)
       expect(assigns(:error)).to include(content: ["can't be blank"])
@@ -30,7 +33,7 @@ describe MessagesController, type: :controller do
   context 'when user is not logged in' do
     it 'should not success create new Conversation' do
       expect do
-        post :create, xhr: true, params: { content: 'test content', received_id: another_user.id,
+        post :create, xhr: true, params: { content: 'test content', receiver_id: another_user.id,
                                            conversation_id: conversation.id }
       end
         .to change(Conversation, :count).by(0)

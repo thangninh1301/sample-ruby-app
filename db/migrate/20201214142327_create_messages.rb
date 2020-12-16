@@ -6,10 +6,5 @@ class CreateMessages < ActiveRecord::Migration[6.0]
       t.text :content
       t.timestamps
     end
-
-    create_table :conversations do |t|
-      t.timestamps
-      t.string :members
-    end
   end
 end

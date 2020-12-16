@@ -5,7 +5,10 @@ RSpec.describe ConversationsChannel, type: :channel do
 
   let!(:user) { create(:user_mike) }
   let!(:another_user) { create(:another_user) }
-  let!(:conversation) { Conversation.create(members: [user.id, another_user.id]) }
+  let!(:conversation) do
+    Conversation.create(sender_id: user.id,
+                        receiver_id: another_user.id)
+  end
   let(:message) { another_user.messages.create(content: 'test string', conversation_id: conversation.id) }
   context 'when user is not logged in' do
     before do

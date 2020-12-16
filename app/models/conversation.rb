@@ -1,13 +1,14 @@
 class Conversation < ApplicationRecord
-  serialize :members, Array
   has_many :messages, dependent: :destroy
 
-  validate :check_unique_of_members
-  validates :members, presence: true
+  validates :sender_id, presence: true
+  validates :receiver_id, presence: true
 
-  def check_unique_of_members
-    return unless Conversation.where(members: members.reverse).any? || Conversation.where(members: members).any?
+  validate :unique_revert_conversation
 
-    errors.add(:discount, 'should unique members')
+  def unique_revert_conversation
+    return unless Conversation.where(sender_id: receiver_id, receiver_id: sender_id).any?
+
+    errors.add(:discount, 'unique_revert_conversation')
   end
 end

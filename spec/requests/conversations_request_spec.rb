@@ -10,17 +10,17 @@ describe ConversationsController, type: :controller do
     end
     it 'should success create new Conversation' do
       expect do
-        post :create, xhr: true, params: { received_id: another_user.id }
+        post :create, xhr: true, params: { receiver_id: another_user.id }
       end
         .to change(Conversation, :count).by(1)
-      expect(Conversation.last.members).to include(another_user.id)
-      expect(Conversation.last.members).to include(user_mike.id)
+      expect(Conversation.last.receiver_id).to eq(another_user.id)
+      expect(Conversation.last.sender_id).to eq(user_mike.id)
     end
   end
   context 'when user is not logged in' do
     it 'should not success create new Conversation' do
       expect do
-        post :create, xhr: true, params: { received_id: another_user.id }
+        post :create, xhr: true, params: { receiver_id: another_user.id }
       end
         .to change(Conversation, :count).by(0)
       expect(response.body).to include 'You need to sign in or sign up before continuing'

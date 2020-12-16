@@ -1,11 +1,11 @@
 <div id="chat-box-<%= conversation.id %>" class="chatbox">
   <div class="chatbox-top">
     <div class="chatbox-avatar">
-      <%= gravatar_for received, size: 50 %>
+      <%= gravatar_for receiver, size: 50 %>
     </div>
     <div class="chat-partner-name">
       <span class="status online"></span>
-      <%= link_to received.name, received %>
+      <%= link_to receiver.name, receiver %>
     </div>
     <div class="chatbox-icons">
       <a href="javascript:void(0);"><i class="fa fa-minus"></i></a>
@@ -20,6 +20,6 @@
   </div>
 
   <div class="chat-input-holder">
-    <%= render('conversations/chat_form', conversation: conversation, received: received) %>
+    <%= render('conversations/chat_form', conversation: conversation, receiver: receiver) %>
   </div>
 </div>

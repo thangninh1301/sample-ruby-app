@@ -2,10 +2,15 @@ class ConversationsController < ApplicationController
   authorize_resource
 
   def create
-    array = [current_user.id, strong_params[:received_id].to_i]
-    @conversation = Conversation.find_by(members: array) || Conversation.find_by(members: array.reverse)
-    @received = User.find(strong_params[:received_id])
-    @conversation ||= Conversation.create(members: array)
+    @conversation = Conversation.find_by(sender_id: conversation_param[:receiver_id],
+                                         receiver_id: current_user.id) ||
+                    Conversation.find_by(receiver_id: conversation_param[:receiver_id],
+                                         sender_id: current_user.id)
+
+    @receiver = User.find_by(id: conversation_param[:receiver_id])
+
+    @conversation ||= Conversation.create(sender_id: current_user.id,
+                                          receiver_id: conversation_param[:receiver_id])
 
     respond_to do |format|
       format.html { to_last_url }
@@ -15,7 +20,7 @@ class ConversationsController < ApplicationController
 
   private
 
-  def strong_params
-    params.permit(:received_id)
+  def conversation_param
+    params.permit(:receiver_id)
   end
 end

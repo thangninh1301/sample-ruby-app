@@ -4,7 +4,10 @@ RSpec.describe MessagesBroadcastJob, type: :job do
   include ActiveJob::TestHelper
   let(:user_mike) { create(:user_mike) }
   let(:another_user) { create(:another_user) }
-  let!(:conversation) { Conversation.create(members: [user_mike.id, another_user.id]) }
+  let!(:conversation) do
+    Conversation.create(sender_id: user_mike.id,
+                        receiver_id: another_user.id)
+  end
   let!(:message) { user_mike.messages.create(content: 'test string', conversation_id: conversation.id) }
 
   context 'with private method' do

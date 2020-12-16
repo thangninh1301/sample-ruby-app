@@ -36,7 +36,8 @@ describe User, type: :model do
       expect(another_user_ability).to be_able_to(:update, another_user.reactions.new)
       expect(another_user_ability).to be_able_to(:destroy, another_user.reactions.new)
 
-      expect(another_user_ability).to be_able_to(:create, Conversation.new(members: [another_user.id, admin.id]))
+      expect(another_user_ability).to be_able_to(:create, Conversation.new(sender_id: admin.id,
+                                                                           receiver_id: another_user.id))
     end
 
     it 'another_user cannot edit other resouce' do
