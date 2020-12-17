@@ -16,7 +16,9 @@ class Ability
     can :manage, Reaction, reactor_id: user.id
     can :manage, Relationship, follower_id: user.id
     can :manage, Message, user_id: user.id
-    can :read, Message, receiver_id: user.id
+    can :read, Message do |m|
+      m.conversation.receiver = user
+    end
     can :manage, Conversation, sender_id: user.id
   end
 end
