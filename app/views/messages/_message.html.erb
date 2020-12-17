@@ -1,0 +1,16 @@
+<% if current_user == message.user %>
+  <div class="message-box-holder">
+    <div class="message-box">
+      <%= message.content %>
+    </div>
+  </div>
+<% else %>
+  <div class="message-box-holder">
+    <div class="message-sender">
+      <%= message.user.name %>
+    </div>
+    <div class="message-box message-partner">
+      <%= message.content %>
+    </div>
+  </div>
+<% end %>

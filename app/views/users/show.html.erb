@@ -8,6 +8,9 @@
     </section>
     <section class="stats">
       <%= render 'shared/stats' %>
+      <%= link_to image_tag("icons/message.jpg", size: "40x40"),
+                  conversations_path(receiver_id: @user.id),
+                  method: :post, remote: true  if user_signed_in? %>
     </section>
   </aside>
   <div class="col-md-8">

@@ -1,0 +1,6 @@
+$.fn.not_exists = function () {
+  return this.length == 0;
+}
+if ($("chat-box-<%= @conversation.id %>").not_exists()) {
+  $("#chat-list").append("<%= escape_javascript(render('conversations/chat_box', conversation: @conversation, receiver: @receiver)) %>");
+}

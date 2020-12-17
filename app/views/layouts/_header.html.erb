@@ -32,6 +32,7 @@
             </ul>
           </li>
           <li><%= render 'notifications/feed_notification' %></li>
+          <%= render 'conversations/conversations' %>
         <% else %>
           <li><%= link_to "Log in", login_url %></li>
         <% end %>
