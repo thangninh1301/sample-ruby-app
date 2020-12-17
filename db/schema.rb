@@ -47,7 +47,8 @@ ActiveRecord::Schema.define(version: 2020_12_14_142329) do
   create_table "conversations", force: :cascade do |t|
     t.integer "sender_id"
     t.integer "receiver_id"
-    t.index ["sender_id", "receiver_id"], name: "index_conversations_on_sender_id_and_receiver_id", unique: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "messages", force: :cascade do |t|
