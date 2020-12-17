@@ -10,7 +10,7 @@ class MessagesBroadcastJob < ApplicationJob
   private
 
   def render_message(message, received_id)
-    received = User.find(received_id)
+    received = User.find_by(id: received_id)
     ApplicationController.renderer.render(partial: 'messages/message', locals: { message: message,
                                                                                  current_user: received })
   end
