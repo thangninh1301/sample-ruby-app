@@ -51,13 +51,6 @@ ActiveRecord::Schema.define(version: 2020_12_17_030611) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "item_photos", force: :cascade do |t|
-    t.integer "message_id"
-    t.string "photo"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "messages", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "conversation_id", null: false

@@ -10,8 +10,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   storage :file
 
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  if Rails.env.development? || Rails.env.production?
+    def store_dir
+      "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    end
   end
 
   version :fit_message_box do
