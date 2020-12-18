@@ -114,3 +114,5 @@ gem 'devise_lastseenable'
 gem 'rolify'
 
 gem 'devise-i18n'
+
+gem 'carrierwave'

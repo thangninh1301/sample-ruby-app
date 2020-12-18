@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
     alias_action :update, :destroy, to: :crud
     can :read, :all # permissions for every user, even if not logged in
+    can :manage, Photo
     cannot :read, Notification
     cannot :read, Message
     can :crud, User if user.has_role? :admin # additional permissions for administrators
