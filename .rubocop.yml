@@ -13,3 +13,7 @@ Metrics/ClassLength:
   Enabled: false
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/models/ability.rb'

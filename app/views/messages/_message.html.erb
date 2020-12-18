@@ -2,6 +2,7 @@
   <div class="message-box-holder">
     <div class="message-box">
       <%= message.content %>
+      <div><%= render 'messages/photos', message: message %></div>
     </div>
   </div>
 <% else %>
@@ -11,6 +12,7 @@
     </div>
     <div class="message-box message-partner">
       <%= message.content %>
+      <div><%= render 'messages/photos', message: message %></div>
     </div>
   </div>
 <% end %>
