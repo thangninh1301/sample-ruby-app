@@ -4,7 +4,6 @@ class Ability
   def initialize(user)
     alias_action :update, :destroy, to: :crud
     can :read, :all # permissions for every user, even if not logged in
-    can :manage, Photo
     cannot :read, Notification
     cannot :read, Message
     can :crud, User if user.has_role? :admin # additional permissions for administrators
@@ -17,6 +16,9 @@ class Ability
     can :manage, Reaction, reactor_id: user.id
     can :manage, Relationship, follower_id: user.id
     can :manage, Message, user_id: user.id
+    can :create, Photo do |p|
+      p.message.user_id == user.id
+    end
     can :read, Message do |m|
       m.conversation.receiver = user
     end
