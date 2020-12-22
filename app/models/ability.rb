@@ -20,7 +20,7 @@ class Ability
       p.message.user_id == user.id
     end
     can :read, Message do |m|
-      m.conversation.receiver = user
+      m.conversation.receiver == user
     end
     can :manage, Conversation, sender_id: user.id
   end
