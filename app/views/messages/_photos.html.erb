@@ -1,5 +1,5 @@
 <% if message.photos.any? %>
   <% message.photos.each do |p| %>
-    <%= image_tag p.photo.fit_message_box.url if p.photo.present? %>
+    <%= image_tag p.photo.url, size: "200x200" if p.photo.present? %>
   <% end %>
 <% end %>
