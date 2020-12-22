@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
     @message = current_user.messages.build(message_params)
     @conversation = Conversation.find_by(id: message_params[:conversation_id])
     if @message.save
-      save_photo_if_exits
+      save_photo_if_exist
       MessagesBroadcastJob.perform_now(@message, params[:receiver_id], message_params[:conversation_id], current_user)
     else
       @error = @message.errors.messages
@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
     params.permit(photo: [])
   end
 
-  def save_photo_if_exits
+  def save_photo_if_exist
     return unless photo_params[:photo]
 
     photo_params[:photo].each do |a|
