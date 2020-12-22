@@ -1,9 +1,20 @@
 <%= form_with(url: messages_path, remote: true) do |f| %>
   <ul id="text-field-errors-chat-<%= conversation.id.to_s %>"></ul>
-
   <%= f.hidden_field :conversation_id, value: conversation.id %>
   <%= f.hidden_field :receiver_id, value: receiver.id %>
-  <%= f.file_field :photo, multiple: true, name: "photo[]", class: "active-storage-button" %>
+  <%= f.file_field :photo, multiple: true, name: "photo[]", class: "active-storage" %>
   <%= f.submit :style => "display: none;" %>
   <%= f.text_field :content, class: "chat-input", id: 'text-field-chat-' + conversation.id.to_s %>
 <% end %>
+
+<script type="text/javascript">
+  $("#photo.active-storage").bind("change", function () {
+    let photos = document.getElementsByClassName('active-storage')[0].files;
+    for (let i = 0; i < photos.length; i++) {
+      let imageSize = photos[i].size / 1024 / 1024;
+      if (imageSize > 1) {
+        alert("Maximum file size is 1MB. Please choose an other file!");
+      }
+    }
+  });
+</script>
