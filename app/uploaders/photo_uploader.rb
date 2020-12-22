@@ -4,10 +4,6 @@ class PhotoUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   process resize_to_fit: [800, 800]
 
-  # version :message_box do
-  #   process resize_to_fill: [200, 200]
-  # end
-
   storage :file
 
   unless Rails.env.test? || Rails.env.cucumber?
