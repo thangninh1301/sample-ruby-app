@@ -3,7 +3,7 @@
   <%= f.hidden_field :conversation_id, value: conversation.id %>
   <%= f.hidden_field :receiver_id, value: receiver.id %>
   <%= f.file_field :photo, multiple: true, name: "photo[]", class: "active-storage" %>
-  <%= f.submit :style => "display: none;" %>
+  <%= f.submit style: "display: none;" %>
   <%= f.text_field :content, class: "chat-input", id: 'text-field-chat-' + conversation.id.to_s %>
 <% end %>
 
