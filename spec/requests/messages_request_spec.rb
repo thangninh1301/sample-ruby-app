@@ -24,7 +24,7 @@ describe MessagesController, type: :controller do
       controller.instance_variable_set(:@message, message)
       controller.params = ActionController::Parameters.new({ photo: [valid_image] })
       expect do
-        controller.send(:save_photo_if_exits)
+        controller.send(:save_photo_if_exist)
       end
         .to change(Photo, :count).by(1)
     end
