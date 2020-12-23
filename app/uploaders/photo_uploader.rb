@@ -6,7 +6,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   storage :file
 
-  unless Rails.env.test? || Rails.env.cucumber?
+  unless Rails.env.test?
     def store_dir
       "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     end

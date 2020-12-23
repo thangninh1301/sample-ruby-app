@@ -18,18 +18,6 @@ describe MessagesController, type: :controller do
   end
   let!(:message) { user_mike.messages.create(conversation_id: conversation.id, content: 'test') }
 
-  context 'with private controller method' do
-    it 'should success create new message' do
-      controller = MessagesController.new
-      controller.instance_variable_set(:@message, message)
-      controller.params = ActionController::Parameters.new({ photo: [valid_image] })
-      expect do
-        controller.send(:save_photo_if_exist)
-      end
-        .to change(Photo, :count).by(1)
-    end
-  end
-
   context 'when user is logged in' do
     before(:each) do
       sign_in user_mike
@@ -48,7 +36,7 @@ describe MessagesController, type: :controller do
       expect do
         post :create, xhr: true, params: { content: 'test content', receiver_id: another_user.id,
                                            conversation_id: conversation.id,
-                                           photo: [valid_image] }
+                                           photos_attributes: [photo: valid_image] }
       end
         .to change(Message, :count).by(1)
                                    .and change(Photo, :count).by(1)
@@ -68,10 +56,11 @@ describe MessagesController, type: :controller do
       expect do
         post :create, xhr: true, params: { content: 'test content', receiver_id: another_user.id,
                                            conversation_id: conversation.id,
-                                           photo: [invalid_file_type] }
+                                           photos_attributes: [{ photo: invalid_file_type },
+                                                               { photo: invalid_file_type }] }
       end
         .to change(Photo, :count).by(0)
-      expect(assigns(:error)[:photo].first).to include('allowed types: (?-mix:image')
+      expect(assigns(:error)[:"photos.photo"].first).to include('allowed types: (?-mix:image')
     end
   end
 
