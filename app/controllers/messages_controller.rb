@@ -18,6 +18,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.permit(:conversation_id, :content)
+    params.permit(:conversation_id, :content, photos_attributes: [:photo])
   end
 end

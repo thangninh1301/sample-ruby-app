@@ -6,6 +6,13 @@ describe User, type: :model do
   let!(:another_user) { create(:another_user) }
   let(:admin_ability) { Ability.new(admin) }
   let(:another_user_ability) { Ability.new(another_user) }
+
+  let(:conversation) do
+    Conversation.create(sender_id: admin.id,
+                        receiver_id: another_user.id)
+  end
+  let!(:message) { another_user.messages.create(conversation_id: conversation.id, content: 'test') }
+  let!(:admin_message) { admin.messages.create(conversation_id: conversation.id, content: 'test') }
   context 'with role' do
     it 'first user should be admin' do
       expect(admin.has_role?(:admin)).to eq(true)
@@ -38,6 +45,7 @@ describe User, type: :model do
 
       expect(another_user_ability).to be_able_to(:create, Conversation.new(sender_id: another_user.id,
                                                                            receiver_id: admin.id))
+      expect(another_user_ability).to be_able_to(:create, message.photos.new)
     end
 
     it 'another_user cannot edit other resouce' do
@@ -48,6 +56,7 @@ describe User, type: :model do
       expect(another_user_ability).to_not be_able_to(:update, admin.reactions.new)
       expect(another_user_ability).to_not be_able_to(:destroy, admin.reactions.new)
       expect(another_user_ability).to_not be_able_to(:create, admin.messages.new)
+      expect(another_user_ability).to_not be_able_to(:destroy, admin_message.photos.new)
     end
   end
 
