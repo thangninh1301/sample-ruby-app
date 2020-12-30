@@ -48,3 +48,4 @@ yarn-debug.log*
 .DS_Store
 .editorconfig
 /public/uploads/*
+.rbenv-vars
