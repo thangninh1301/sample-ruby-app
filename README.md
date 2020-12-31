@@ -47,6 +47,9 @@ to  `local   all        all                                     md5`
 - replace `/etc/nginx/sites-available/default` with `sample_app/default`
 - `$sudo service nginx restart`
 
+**Install redis**
+- Guide: https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04
+
 **Environment variables**
 - Gen secret key `$cd /home/ubuntu/sample_app && rails secret` 
 - Set env variables: <br/>
@@ -61,4 +64,3 @@ to  `local   all        all                                     md5`
 - `$sudo systemctl enable puma`
 - `$sudo service puma restart`
 </details>  
-
