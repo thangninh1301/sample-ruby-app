@@ -24,6 +24,17 @@ Things you may want to cover:
 
 **Create user deploy**
 - Create user `deploy` with root privilege 
+- Create `/sample_app/shared/config/application.yml` include SECRET_KEY_BASE
+- Create `fdsf` with content: <br/>
+```
+production: 
+   adapter: postgresql
+   encoding: unicode
+   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+   database: sample_app_production
+   username: sample_app
+   password: 'ZypCPp7c'
+```
 
 **Postgres**
 
