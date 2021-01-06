@@ -77,7 +77,16 @@ upstream myapp {
    
                    proxy_pass http://myapp;
            }
-   }
+
+           location /cable {
+                   proxy_pass http://backend;
+                   proxy_http_version 1.1;
+                   proxy_set_header Upgrade "websocket";
+                   proxy_set_header Connection "Upgrade";
+                   proxy_set_header X-Real-IP $remote_addr;
+                   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           }
+}
 ```
 - `$sudo service nginx restart`
 
