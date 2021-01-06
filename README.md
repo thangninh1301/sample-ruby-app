@@ -44,7 +44,8 @@ production:
 
 **Nginx**
 - Install using  `$sudo apt install nginx`
-- replace content`/etc/nginx/sites-available/default` with content <br/>
+- Edit file `$sudo vim /etc/nginx/nginx.conf`
+- replace line` include /etc/nginx/sites-enabled/*;` with content <br/>
 ```
 upstream myapp {
      unix:/home/deploy/sample_app/shared/tmp/sockets/puma.sock;
