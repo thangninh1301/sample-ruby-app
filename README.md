@@ -19,8 +19,11 @@ Things you may want to cover:
 
 <details>  
 
-<summary><strong>Deployment</strong></summary>
+<summary><strong>Deployment environment</strong></summary>
 <br>
+
+**Create user deploy**
+- Create user `deploy` with root privilege 
 
 **Postgres**
 
@@ -48,17 +51,19 @@ to  `local   all        all                                     md5`
 **Install redis**
 - Guide: https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04
 
-**Environment variables**
-- Gen secret key `$cd /home/ubuntu/sample_app && rails secret` 
-- Set env variables: <br/>
-`RAILS_ENV=production` <br/>
-`SAMPLE_APP_DATABASE_PASSWORD=ZypCPp7c` <br/>
-`RAILS_SERVE_STATIC_FILES=true` <br/>
-`SECRET_KEY_BASE=generated_key`
-
 **Run puma as service**
-- Copy file `sample_app/puma.service` to `/etc/systemd/system/`
+- Run in local IDE `bundle execcap production puma:systemd:config puma:systemd:enable`
+- Run in server `sudo vim /etc/systemd/puma_sample_app_production.service`
+- Replace `$HOME` to `/home/deploy/`
 - `$sudo systemctl daemon-reload`
-- `$sudo systemctl enable puma`
-- `$sudo service puma restart`
+- `$sudo service puma_sample_app_production restart`
+</details>  
+
+<details>  
+
+<summary><strong>How to deploy</strong></summary>
+<br>
+
+**Run in local IDE**
+- `$bundle exec cap production deploy`
 </details>  

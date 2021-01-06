@@ -13,5 +13,4 @@ require 'capistrano/yarn'
 require 'capistrano/puma'
 install_plugin Capistrano::Puma  # Default puma tasks
 install_plugin Capistrano::Puma::Systemd
-install_plugin Capistrano::Puma::Nginx
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }

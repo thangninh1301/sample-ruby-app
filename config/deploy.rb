@@ -26,11 +26,3 @@ set :puma_workers, 0
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
-
-namespace :deploy do
-  task :start do ; end
-  task :stop do ; end
-  task :restart do ; end
-  task :update_code do ; end #override this task to prevent capistrano to upload on servers
-  task :symlink do ; end #don't create the current symlink to the last release
-end
