@@ -51,9 +51,6 @@ to  `local   all        all                                     md5`
 
 - Guide : https://gorails.com/setup/ubuntu/18.04
 
-**Install gem**
-- `cd ~/sample_app && bundle i`
-
 **Nginx**
 - Install using  `$sudo apt install nginx`
 - replace `/etc/nginx/sites-available/default` with `sample_app/default`
