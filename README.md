@@ -25,28 +25,19 @@ Things you may want to cover:
 **Create user deploy**
 - Create user `deploy` with root privilege 
 - Create `/sample_app/shared/config/application.yml` include SECRET_KEY_BASE
-- Create `fdsf` with content: <br/>
+- Create `/sample_app/shared/config/database.yaml` with content: <br/>
 ```
-production: 
-   adapter: postgresql
-   encoding: unicode
-   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-   database: sample_app_production
-   username: sample_app
-   password: 'ZypCPp7c'
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: sample_app_production
+  username: sample_app
+  password: 'ZypCPp7c'
+  host: 'cdc.xxxxxxxxxxx.ap-southeast-1.rds.amazonaws.com'
+  port: 5432
 ```
 
-**Postgres**
-
-- Install using  `$sudo apt install postgresql-10 libpq-dev`
-- Edit pg_hba.conf `$sudo vim /etc/postgresql/10/main/pg_hba.conf`<br/>
-change `local   all        all                                     peer`
-to  `local   all        all                                     md5`
-- Save and exit
-- Create user `$sudo -i -u postgres psql` <br/>
-  Type: `create user sample_app with password "ZypCPp7c";` <br/>
-  Type: `alter user sample_app superuser;`
-  
 **Ruby 2.7.1 and Rails  6.0.3.4**
 
 - Guide : https://gorails.com/setup/ubuntu/18.04
@@ -89,9 +80,6 @@ upstream myapp {
    }
 ```
 - `$sudo service nginx restart`
-
-**Install redis**
-- Guide: https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04
 
 **Run puma as service**
 - Run in local IDE `bundle execcap production puma:systemd:config puma:systemd:enable`
