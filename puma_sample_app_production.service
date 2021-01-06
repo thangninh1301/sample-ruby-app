@@ -1,0 +1,13 @@
+[Unit]
+Description=My Miscellaneous Service
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/home/ubuntu/sample_app/current
+ExecStart=/home/deploy/.rbenv/bin/rbenv exec bundle exec puma -C /home/deploy/sample_app/shared/puma.rb /home/ubuntu/sample_app/config.ru
+Restart=on-failure # or always, on-abort, etc
+
+[Install]
+WantedBy=multi-user.target

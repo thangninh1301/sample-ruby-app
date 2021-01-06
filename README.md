@@ -22,8 +22,6 @@ Things you may want to cover:
 <summary><strong>Deployment</strong></summary>
 <br>
 
-**Clone project**
-
 **Postgres**
 
 - Install using  `$sudo apt install postgresql-10 libpq-dev`

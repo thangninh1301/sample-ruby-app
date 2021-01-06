@@ -1,12 +1,12 @@
 upstream myapp {
-  server unix:/home/deploy/sample_app/shared/tmp/sockets/puma.sock;
+  server unix:/home/deploy/sample_app/current/public/puma.sock
 }
 
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
-        root /home/ubuntu/sample_app/public;
+        root /home/deploy/sample_app/current/public;
         index index.html index.htm index.nginx-debian.html;
         server_name sample_app;
 
