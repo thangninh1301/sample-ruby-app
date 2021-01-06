@@ -1,5 +1,5 @@
 upstream myapp {
-  server unix:/home/deploy/sample_app/current/public/puma.sock
+  unix:/home/deploy/sample_app/shared/tmp/sockets/puma.sock;
 }
 
 server {
