@@ -78,8 +78,8 @@ Rails.application.configure do
       :address => 'smtp.gmail.com',
       :port => '587',
       :authentication => :plain,
-      :user_name => ENV['MAIL_USERNAME'],
-      :password => ENV['MAIL_PASSWORD'],
+      :user_name => 'thang13100',
+      :password => 'vizxhoauwygktooz',
       :enable_starttls_auto => true
   }
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
