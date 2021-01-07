@@ -59,8 +59,18 @@ group :development do
   gem 'listen', '~> 3.2'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+  gem 'capistrano'
+  gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rbenv'
+  gem 'capistrano-yarn'
+  gem 'ed25519', '>= 1.2', '< 2.0'
+  gem 'net-ssh', '>= 6.0.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'sshkit-sudo'
 end
 
 group :test do

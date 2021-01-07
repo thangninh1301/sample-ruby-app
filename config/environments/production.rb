@@ -22,13 +22,13 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = true
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
@@ -42,8 +42,9 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
-  # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+  config.action_cable.url = 'wss://ec2-54-255-48-27.ap-southeast-1.compute.amazonaws.com/cable'
+  config.action_cable.allowed_request_origins = [ 'http://ec2-54-255-48-27.ap-southeast-1.compute.amazonaws.com',
+                                                  /http:\/\/ec2-54-255-48-27.ap-southeast-1.compute.amazonaws.com.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = false
@@ -68,16 +69,17 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
+
+  # mail test preview
+  host = 'ec2-13-212-214-174.ap-southeast-1.compute.amazonaws.com' # Local server
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
   config.action_mailer.delivery_method = :smtp
-  host = 'safe-ridge-63893.herokuapp.com'
-  config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
-      :address => 'smtp.sendgrid.net',
+      :address => 'smtp.gmail.com',
       :port => '587',
       :authentication => :plain,
-      :user_name => ENV['SENDGRID_USERNAME'],
-      :password => ENV['SENDGRID_PASSWORD'],
-      :domain => 'heroku.com',
+      :user_name => ENV['MAIL_USERNAME'],
+      :password => ENV['MAIL_PASSWORD'],
       :enable_starttls_auto => true
   }
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
