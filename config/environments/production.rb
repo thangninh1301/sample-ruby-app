@@ -73,7 +73,7 @@ Rails.application.configure do
   host = "ec2-13-212-214-174.ap-southeast-1.compute.amazonaws.com"
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
-      :address => 'smtp.sendgrid.net',
+      :address => 'smtp.gmail.com',
       :port => '587',
       :authentication => :plain,
       :user_name => ENV['MAIL_USERNAME'],
