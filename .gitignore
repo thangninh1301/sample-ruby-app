@@ -50,3 +50,4 @@ yarn-debug.log*
 /public/uploads/*
 
 shared/log/*
+.rbenv-vars
